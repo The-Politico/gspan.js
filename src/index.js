@@ -1,20 +1,12 @@
 import { google } from '@politico/interactive-bin';
 import parse from './parse';
+import splitRaw from './utils/splitRaw';
 
 export default async function (fileId) {
   const drive = new google.Drive();
 
-  const rawExport = await drive.export(fileId);
-  let rawSection = rawExport.split('________________\r\n^^^^^^^^^^ DO NOT WRITE BELOW THIS LINE ^^^^^^^^^^');
-  if (rawSection.length === 1) {
-    rawSection = rawExport.split('________________\r\n-------> LIVE TRANSCRIPT HAS ENDED <-----------');
-  }
-
-  if (rawSection.length === 1) {
-    return null;
-  }
-
-  const [transcriptRaw, footerRaw] = rawSection;
+  const raw = await drive.export(fileId);
+  const [transcriptRaw, footerRaw] = splitRaw(raw);
 
   const transcript = parse(transcriptRaw);
   const footer = parse(footerRaw);
