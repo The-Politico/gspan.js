@@ -4,16 +4,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _speaker = require("./speaker");
+var _content = require("./content");
 
-var _speaker2 = _interopRequireDefault(_speaker);
+var _content2 = _interopRequireDefault(_content);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: 'attribution',
   test: block => {
-    const match = /^([\w|\d|\s]*):(.*)$/.exec(block);
+    const match = /^<(.*)>:(.*)$/.exec(block);
 
     if (match) {
       return {
@@ -35,7 +35,7 @@ exports.default = {
       text
     } = value;
 
-    const spoken = _speaker2.default.render(text);
+    const spoken = _content2.default.render(text);
 
     const spokenWithAttribution = [{
       type: 'attribution',

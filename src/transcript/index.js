@@ -3,11 +3,11 @@ import elements from './elements';
 export default raw => {
   let output = [];
 
-  const blocks = raw.split(/\n|\r/).filter(t => t !== '');
+  const blocks = raw.split(/\n|\r/).filter(t => t.replace(/^([^\\]?\[(\w+)\])+$/, '') !== '');
 
   blocks.forEach(b => {
     elements.some(e => {
-      const { pass, value } = e.test(b);
+      const { pass, value } = e.test(b.trim());
 
       if (pass) {
         const render = e.render(value, b, output);

@@ -1,22 +1,20 @@
-import trim from 'lodash/trim';
-
 export default {
-  name: 'speaker',
+  name: 'content',
 
   test: block => ({pass: true}),
 
   render: (text, block) => {
     if (text) {
       return {
-        type: 'speaker',
-        value: trim(text),
+        type: 'content',
+        value: text.trim(),
       };
     } else {
-      const match = /^[\w|\d|\s]*:(.*)$/.exec(block);
+      const match = /^<.*>:(.*)$/.exec(block);
       const spoken = match ? match[1] : block;
       return {
-        type: 'speaker',
-        value: trim(spoken),
+        type: 'content',
+        value: spoken.trim(),
       };
     }
   },

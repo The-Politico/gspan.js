@@ -1,24 +1,52 @@
 import { google } from '@politico/interactive-bin';
-import parse from './parse';
+import fetch from 'node-fetch';
+import fs from 'fs-extra';
+import parseTranscript from './transcript';
+import parseComments from './comments';
 import splitRaw from './utils/splitRaw';
+import mergeTranscriptComments from './utils/mergeTranscriptComments';
+import isLive from './utils/isLive';
 
-export default async function (fileId) {
+export default async function (
+  fileId,
+  directory,
+  config = {}
+) {
   const drive = new google.Drive();
 
+  // get raw data
   const raw = await drive.export(fileId);
+  const commentsMeta = await drive.comments(fileId);
+
+  let authors;
+  if (config.authorAPI) {
+    authors = await fetch(config.authorAPI, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${process.env.GSPAN_STAFF_TOKEN}`,
+      },
+    }).then(res => res.json());
+  }
+
+  // parse raw data into workable data structure
   const [transcriptRaw, footerRaw] = splitRaw(raw);
+  const transcript = parseTranscript(transcriptRaw);
+  const {activeAuthors, comments} = parseComments(footerRaw, commentsMeta, authors, config.authorNameAccessor, config.authorIdAccessor);
+  const live = isLive(raw);
 
-  const transcript = parse(transcriptRaw);
-  const footer = parse(footerRaw);
+  // merge transcript and comments
+  const content = mergeTranscriptComments(transcript, comments);
 
-  // let files = [];
-  // try {
-  //   files = await drive.comments('1Pht8pQS_gF3Q78IeGSObDD3op9JjNGKd17p4q62Lwtw');
-  // } catch (e) {
-  //   console.error(e);
-  // }
+  const output = {
+    live,
+    users: activeAuthors,
+    content,
+  };
 
-  // console.log(files);
-
-  return transcript;
+  if (directory) {
+    return fs.writeJson(directory, output);
+  } else {
+    return output;
+  }
 }

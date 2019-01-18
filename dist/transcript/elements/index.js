@@ -20,10 +20,10 @@ var _soundbite = require("./soundbite");
 
 var _soundbite2 = _interopRequireDefault(_soundbite);
 
-var _speaker = require("./speaker");
+var _content = require("./content");
 
-var _speaker2 = _interopRequireDefault(_speaker);
+var _content2 = _interopRequireDefault(_content);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = [_ignore2.default, _soundbite2.default, _attribution2.default, _comment2.default, _speaker2.default];
+exports.default = [_ignore2.default, _soundbite2.default, _attribution2.default, _comment2.default, _content2.default];

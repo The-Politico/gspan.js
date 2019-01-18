@@ -2,7 +2,7 @@ export default {
   name: 'soundbite',
 
   test: block => {
-    const match = /^:\[(\(.*\))\]$/.exec(block);
+    const match = /^:\[(\(.*\))\]/.exec(block);
 
     if (match) {
       return {

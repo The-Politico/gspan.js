@@ -1,10 +1,10 @@
-import speakerElement from './speaker';
+import contentElement from './content';
 
 export default {
   name: 'attribution',
 
   test: block => {
-    const match = /^([\w|\d|\s]*):(.*)$/.exec(block);
+    const match = /^<(.*)>:(.*)$/.exec(block);
 
     if (match) {
       return {
@@ -24,7 +24,7 @@ export default {
   render: (value, block, output) => {
     const { speaker, text } = value;
 
-    const spoken = speakerElement.render(text);
+    const spoken = contentElement.render(text);
     const spokenWithAttribution = [
       {
         type: 'attribution',
