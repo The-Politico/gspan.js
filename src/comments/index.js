@@ -9,8 +9,8 @@ import splitRawFooter from './splitRawFooter';
 const LINE_BREAKS = /\n|\r/g;
 const KEY_VALUE_REGEX = /^([^\s]*)\s*:\s*((?:.|\s)*)$/;
 
-const PUBLISH_REGEX = /^publish$/;
-const UNPUBLISH_REGEX = /^unpublish$/;
+const PUBLISH_REGEX = /^[p|P]ublish$/;
+const UNPUBLISH_REGEX = /^[u|U]npublish$/;
 
 export default (rawContent, meta, authors, authorNameAccessor, authorIdAccessor) => {
   const rawComments = parseRawComments(splitRawFooter(rawContent));

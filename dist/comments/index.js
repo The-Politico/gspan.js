@@ -36,8 +36,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const LINE_BREAKS = /\n|\r/g;
 const KEY_VALUE_REGEX = /^([^\s]*)\s*:\s*((?:.|\s)*)$/;
-const PUBLISH_REGEX = /^publish$/;
-const UNPUBLISH_REGEX = /^unpublish$/;
+const PUBLISH_REGEX = /^[p|P]ublish$/;
+const UNPUBLISH_REGEX = /^[u|U]npublish$/;
 
 exports.default = (rawContent, meta, authors, authorNameAccessor, authorIdAccessor) => {
   const rawComments = (0, _parseRawComments2.default)((0, _splitRawFooter2.default)(rawContent));
