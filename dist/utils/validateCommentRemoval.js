@@ -11,6 +11,10 @@ var _chalk2 = _interopRequireDefault(_chalk);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (count, comments) => {
+  if (comments.length === 0) {
+    return;
+  }
+
   const commentsOnPage = comments.filter(c => !c.resolved);
   const realCommentsCount = commentsOnPage.reduce((accumulator, currentValue, idx) => {
     // first iteration

@@ -3,6 +3,8 @@ import elements from './elements';
 export default raw => {
   let output = [];
 
+  if (!raw) { return output; }
+
   const blocks = raw.split(/\n|\r/).filter(t => t.replace(/^([^\\]?\[(\w+)\])+$/, '') !== '');
 
   blocks.forEach(b => {

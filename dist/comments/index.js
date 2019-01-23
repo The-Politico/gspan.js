@@ -28,10 +28,6 @@ var _parseRawComments = require("./parseRawComments");
 
 var _parseRawComments2 = _interopRequireDefault(_parseRawComments);
 
-var _splitRawFooter = require("./splitRawFooter");
-
-var _splitRawFooter2 = _interopRequireDefault(_splitRawFooter);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const LINE_BREAKS = /\n|\r/g;
@@ -40,7 +36,15 @@ const PUBLISH_REGEX = /^[p|P]ublish$/;
 const UNPUBLISH_REGEX = /^[u|U]npublish$/;
 
 exports.default = (rawContent, meta, authors, authorNameAccessor, authorIdAccessor) => {
-  const rawComments = (0, _parseRawComments2.default)((0, _splitRawFooter2.default)(rawContent));
+  const rawComments = (0, _parseRawComments2.default)(rawContent);
+
+  if (!rawComments) {
+    return {
+      comments: [],
+      activeAuthors: {}
+    };
+  }
+
   const activeAuthors = {};
   const comments = meta.map(c => {
     if (!c.quotedFileContent) {

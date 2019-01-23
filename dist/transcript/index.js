@@ -12,6 +12,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = raw => {
   let output = [];
+
+  if (!raw) {
+    return output;
+  }
+
   const blocks = raw.split(/\n|\r/).filter(t => t.replace(/^([^\\]?\[(\w+)\])+$/, '') !== '');
   blocks.forEach(b => {
     _elements2.default.some(e => {

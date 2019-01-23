@@ -4,7 +4,6 @@ import get from 'lodash/get';
 import chalk from 'chalk';
 import Marker from '../marker';
 import parseRawComments from './parseRawComments';
-import splitRawFooter from './splitRawFooter';
 
 const LINE_BREAKS = /\n|\r/g;
 const KEY_VALUE_REGEX = /^([^\s]*)\s*:\s*((?:.|\s)*)$/;
@@ -13,7 +12,13 @@ const PUBLISH_REGEX = /^[p|P]ublish$/;
 const UNPUBLISH_REGEX = /^[u|U]npublish$/;
 
 export default (rawContent, meta, authors, authorNameAccessor, authorIdAccessor) => {
-  const rawComments = parseRawComments(splitRawFooter(rawContent));
+  const rawComments = parseRawComments(rawContent);
+  if (!rawComments) {
+    return {
+      comments: [],
+      activeAuthors: {},
+    };
+  }
 
   const activeAuthors = {};
 

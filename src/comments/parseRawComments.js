@@ -2,6 +2,7 @@ import splitRawFooter from './splitRawFooter';
 
 export default raw => {
   let rawComments = splitRawFooter(raw);
+  if (!rawComments) { return null; }
 
   let output = {};
   const blocks = rawComments.split(/\n|\r/).filter(t => t !== '');

@@ -12,6 +12,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = raw => {
   let rawComments = (0, _splitRawFooter2.default)(raw);
+
+  if (!rawComments) {
+    return null;
+  }
+
   let output = {};
   const blocks = rawComments.split(/\n|\r/).filter(t => t !== '');
   let key = null;

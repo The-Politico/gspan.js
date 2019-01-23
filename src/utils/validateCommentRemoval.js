@@ -1,6 +1,8 @@
 import chalk from 'chalk';
 
 export default (count, comments) => {
+  if (comments.length === 0) { return; }
+
   const commentsOnPage = comments.filter(c => !c.resolved);
 
   const realCommentsCount = commentsOnPage.reduce((accumulator, currentValue, idx) => {
