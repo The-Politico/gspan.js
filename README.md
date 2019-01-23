@@ -233,7 +233,7 @@ or
 ```javascript
 import gspan from 'gspan';
 
-gspan('GOOGLE_DOC_ID', {
+gspan('GOOGLE_DOC_ID', null, {
   authorAPI: "https://example.com/staff/",
   authorNameAccessor: "displayName",
   authorIdAccessor: "id"
