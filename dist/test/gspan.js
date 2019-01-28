@@ -25,8 +25,8 @@ describe('GSpan', () => {
     });
     content = transcript.content;
     live = transcript.live;
-    users = transcript.users; // console.log(transcript);
-    // console.log(transcript.content[1].annotations[0]);
+    users = transcript.users;
+    console.log(transcript); // console.log(transcript.content[1].annotations[0]);
     // content.forEach((v, i) => console.log(i, v));
   });
   it('Loads the Google Doc', () => {
@@ -161,6 +161,22 @@ describe('GSpan', () => {
     (0, _expect2.default)(graf.annotations.length).to.be.above(0);
     const annotation = graf.annotations[0];
     (0, _expect2.default)(annotation.text).to.be('Comment about something **long**.');
+  });
+  it('Creates unique IDs', () => {
+    content.forEach(g => {
+      const contentWithId = content.filter(c => c.id === g.id);
+      (0, _expect2.default)(contentWithId.length).to.be(1);
+    });
+  });
+  it('Creates consistent IDs', async function () {
+    const transcriptTwo = await (0, _index2.default)(TEST_DOC, null, {
+      authorAPI: 'https://politicoapps.com/staff/api/staffer/',
+      authorNameAccessor: 'profile.google_display_name',
+      authorIdAccessor: 'username'
+    });
+    content.forEach((g, idx) => {
+      (0, _expect2.default)(g.id).to.be(transcriptTwo.content[idx].id);
+    });
   });
   it('Parses different "live" states', () => {
     (0, _expect2.default)((0, _isLive2.default)(`

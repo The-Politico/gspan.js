@@ -18,7 +18,7 @@ describe('GSpan', () => {
     live = transcript.live;
     users = transcript.users;
 
-    // console.log(transcript);
+    console.log(transcript);
     // console.log(transcript.content[1].annotations[0]);
     // content.forEach((v, i) => console.log(i, v));
   });
@@ -238,6 +238,25 @@ describe('GSpan', () => {
 
     const annotation = graf.annotations[0];
     expect(annotation.text).to.be('Comment about something **long**.');
+  });
+
+  it('Creates unique IDs', () => {
+    content.forEach(g => {
+      const contentWithId = content.filter(c => c.id === g.id);
+      expect(contentWithId.length).to.be(1);
+    });
+  });
+
+  it('Creates consistent IDs', async function () {
+    const transcriptTwo = await gspan(TEST_DOC, null, {
+      authorAPI: 'https://politicoapps.com/staff/api/staffer/',
+      authorNameAccessor: 'profile.google_display_name',
+      authorIdAccessor: 'username',
+    });
+
+    content.forEach((g, idx) => {
+      expect(g.id).to.be(transcriptTwo.content[idx].id);
+    });
   });
 
   it('Parses different "live" states', () => {

@@ -6,6 +6,7 @@ import parseComments from './comments';
 import splitRaw from './utils/splitRaw';
 import mergeTranscriptComments from './utils/mergeTranscriptComments';
 import isLive from './utils/isLive';
+import makeID from './utils/makeID';
 
 export default async function (
   fileId,
@@ -36,7 +37,7 @@ export default async function (
   const live = isLive(raw);
 
   // merge transcript and comments
-  const content = mergeTranscriptComments(transcript, comments);
+  const content = mergeTranscriptComments(transcript, comments).map((c, idx, full) => makeID(c, idx, full));
 
   const output = {
     live,
