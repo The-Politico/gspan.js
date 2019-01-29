@@ -25,8 +25,8 @@ describe('GSpan', () => {
     });
     content = transcript.content;
     live = transcript.live;
-    users = transcript.users;
-    console.log(transcript); // console.log(transcript.content[1].annotations[0]);
+    users = transcript.users; // console.log(transcript);
+    // console.log(transcript.content[1].annotations[0]);
     // content.forEach((v, i) => console.log(i, v));
   });
   it('Loads the Google Doc', () => {
