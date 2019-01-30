@@ -1,12 +1,12 @@
-import { formatText, formatTranscript } from './format';
-import getWordsSince from './getWordsSince';
 import io from 'socket.io-client';
-import cleanCache from './cleanCache';
 import { google } from '@politico/interactive-bin';
+import { formatText, formatTranscript } from './utils/format';
+import getWordsSince from './utils/getWordsSince';
+import cleanCache from './utils/cleanCache';
 
 const docsAPI = new google.Docs();
 
-export const start = (doc, cache, callback, limit = null, timestamp = Date.now(), iteration = 0) => {
+export const start = (doc, cache, callback, limit = null, timestamp, iteration = 0) => {
   const text = formatTranscript(formatText(getWordsSince(cache, timestamp)));
   if (text.length === 1) {
     if (/^<.*>:.*$/.test(text[0])) {
@@ -29,7 +29,15 @@ export const start = (doc, cache, callback, limit = null, timestamp = Date.now()
 
 export default (doc, limit) => {
   // Where we stash our stuff
-  const cache = [];
+  let backup = null;
+  // try {
+  //   backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+  // } catch (e) {
+  //
+  // }
+  backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+
+  const cache = backup || [];
 
   // Setup a cache buster so our cache doesn't use all the memory
   const cacheCheckInterval = 5 * 60 * 1000; // 5 mins -> microseconds

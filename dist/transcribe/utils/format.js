@@ -45,7 +45,7 @@ const formatText = exports.formatText = str => {
     return `${a} ${b.toUpperCase()}`;
   }) // >> seems to be used instead of repeating speaker prompts in back and forths
   .replace(/\s*>>\s*/g, '\n\n>> ') // Put speaker prompts on new lines
-  .replace(/(\.|"|!|\?|—)\s*([a-zA-Z. ]{2,30}:)/g, '$1\n\n$2');
+  .replace(/(\.|"|!|\?|—)?\s*([a-zA-Z. ]{2,30}:)/g, '$1\n\n$2');
   return ret;
 };
 
@@ -56,8 +56,6 @@ const formatTranscript = exports.formatTranscript = blob => {
 
   blob = blob.replace(/\n\n/g, '>>'); // blob = blob.replace(/\[LB\]/g, '\n');
 
-  console.log('-----');
-  console.log(blob);
   var formattedParagraphs = blob.split('>>'); // Ignore the empty initial in case it starts with a new paragraph
 
   if (!formattedParagraphs[0].length) formattedParagraphs.shift();
