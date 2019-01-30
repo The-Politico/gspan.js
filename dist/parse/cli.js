@@ -12,7 +12,7 @@ var _index2 = _interopRequireDefault(_index);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _yargs2.default.help() // eslint-disable-line
-.scriptName('gspan').command('download <doc> [directory]', 'Downloads a GSpan doc as a JSON file.', yargs => {
+.scriptName('gspan-parse').command('download <doc> [directory]', 'Downloads a GSpan doc as a JSON file.', yargs => {
   yargs.positional('doc', {
     describe: 'The Google Doc ID',
     type: 'string'

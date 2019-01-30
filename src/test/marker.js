@@ -1,5 +1,5 @@
 import expect from 'expect.js';
-import Marker from '../marker';
+import Marker from '../parse/marker';
 
 describe('Marker', () => {
   let marker;

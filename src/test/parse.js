@@ -1,10 +1,10 @@
 import expect from 'expect.js';
-import gspan from '../index';
-import isLive from '../utils/isLive';
+import gspan from '../parse/index';
+import isLive from '../parse/utils/isLive';
 
 const TEST_DOC = '1uD3QH9TJTUbmD76c3ELRgfWDszY68NgwovF3iUf3RvE';
 
-describe('GSpan', () => {
+describe('GSpan Parse', () => {
   let content, live, users;
 
   before(async function () {
