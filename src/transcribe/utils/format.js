@@ -17,20 +17,33 @@ export const formatText = str => {
       .replace(new RegExp(` ${pair[0]}$`, 'i'), pair[1]);
   });
 
+  const honorifics = [
+    'sen',
+    'rep',
+    'mr',
+    'mrs',
+    'ms',
+    'dr',
+    'pres',
+  ];
+
+  const capitalizeHonorificsRegex = new RegExp(` (${honorifics.join('\\.?|')}\\.?) (\\w)`, 'gi');
+  const speakerLineRegex = new RegExp(`(\\.|"|!|\\?|—)?\\s*((?:(?:${honorifics.join('|')})\\.)?[a-z ]{2,30}:)`, 'gi');
+
   ret = ret
     // Music notes
     .replace(/\s+b\x19\*\s+/, '\n\n🎵\n\n') //eslint-disable-line
     // remove blank space before puncuation
     .replace(/\s+(!|\?|;|:|,|\.|')/g, '$1')
     // handle honorifics
-    .replace(/ (sen\.?|rep\.?|mr\.?|mrs\.?|ms\.?|dr\.?) (\w)/gi,
+    .replace(capitalizeHonorificsRegex,
       (match, a, b) => { return ` ${capitalize(a)} ${b.toUpperCase()}`; })
     // Cap first letter of sentences
     .replace(/(!|\?|:|\.|>>)\s+(\w)/g, (match, a, b) => { return `${a} ${b.toUpperCase()}`; })
     // >> seems to be used instead of repeating speaker prompts in back and forths
     .replace(/\s*>>\s*/g, '\n\n>> ')
     // Put speaker prompts on new lines
-    .replace(/(\.|"|!|\?|—)\s*([a-zA-Z. ]{2,30}:)/g, '$1\n\n$2');
+    .replace(speakerLineRegex, '$1\n\n$2');
 
   return ret;
 };

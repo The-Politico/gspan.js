@@ -4,8 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "bin": {
-    "gspan-download": "dist/parse/cli.js",
-    "gspan-transcribe": "dist/transcribe/cli.js"
+    "gspan": "dist/cli.js"
   },
   "scripts": {
     "dev": "nodemon --ignore dist --exec npm run build",

@@ -3,6 +3,7 @@ import { google } from '@politico/interactive-bin';
 import { formatText, formatTranscript } from './utils/format';
 import getWordsSince from './utils/getWordsSince';
 import cleanCache from './utils/cleanCache';
+import backupCache from './utils/backupCache';
 
 const docsAPI = new google.Docs();
 
@@ -27,14 +28,16 @@ export const start = (doc, cache, callback, limit = null, timestamp, iteration =
   }
 };
 
-export default (doc, limit) => {
-  // Where we stash our stuff
-  let backup = null;
-  try {
-    backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
-  } catch (e) {}
+export default (doc, limit, useBackup = false, verbose = false) => {
+  let cache = [];
 
-  const cache = backup || [];
+  if (useBackup) {
+    let backup = null;
+    try {
+      backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+      cache = backup;
+    } catch (e) {}
+  }
 
   // Setup a cache buster so our cache doesn't use all the memory
   const cacheCheckInterval = 5 * 60 * 1000; // 5 mins -> microseconds
@@ -44,7 +47,12 @@ export default (doc, limit) => {
   socket.on('content', data => {
     if (data.data.body === '\r\n') { return; }
     const dat = {t: Date.now(), r: data.data.body};
-    // console.log(dat.t, dat.r);
+    backupCache(cache);
+
+    if (verbose) {
+      console.log(dat.t, dat.r);
+    }
+
     cache.push(dat);
   });
 

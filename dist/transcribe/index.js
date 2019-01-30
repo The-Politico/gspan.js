@@ -21,6 +21,10 @@ var _cleanCache = require("./utils/cleanCache");
 
 var _cleanCache2 = _interopRequireDefault(_cleanCache);
 
+var _backupCache = require("./utils/backupCache");
+
+var _backupCache2 = _interopRequireDefault(_backupCache);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const docsAPI = new _interactiveBin.google.Docs();
@@ -49,15 +53,18 @@ const start = exports.start = (doc, cache, callback, limit = null, timestamp, it
   }
 };
 
-exports.default = (doc, limit) => {
-  // Where we stash our stuff
-  let backup = null;
+exports.default = (doc, limit, useBackup = false, verbose = false) => {
+  let cache = [];
 
-  try {
-    backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
-  } catch (e) {}
+  if (useBackup) {
+    let backup = null;
 
-  const cache = backup || []; // Setup a cache buster so our cache doesn't use all the memory
+    try {
+      backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+      cache = backup;
+    } catch (e) {}
+  } // Setup a cache buster so our cache doesn't use all the memory
+
 
   const cacheCheckInterval = 5 * 60 * 1000; // 5 mins -> microseconds
 
@@ -75,7 +82,12 @@ exports.default = (doc, limit) => {
     const dat = {
       t: Date.now(),
       r: data.data.body
-    }; // console.log(dat.t, dat.r);
+    };
+    (0, _backupCache2.default)(cache);
+
+    if (verbose) {
+      console.log(dat.t, dat.r);
+    }
 
     cache.push(dat);
   });
