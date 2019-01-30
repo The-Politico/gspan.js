@@ -221,7 +221,7 @@ describe('GSpan Parse', () => {
     expect(grafTwo.annotations.length).to.be.above(0);
 
     const annotationThree = grafTwo.annotations[0];
-    expect(annotationThree.published).to.be(false);
+    expect(annotationThree.published).to.be(true);
   });
 
   it('Handles annotation user matching', () => {

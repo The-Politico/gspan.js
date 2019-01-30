@@ -11,7 +11,7 @@ const KEY_VALUE_REGEX = /^([^\s]*)\s*:\s*((?:.|\s)*)$/;
 const PUBLISH_REGEX = /^[p|P]ublish$/;
 const UNPUBLISH_REGEX = /^[u|U]npublish$/;
 
-export default (rawContent, meta, authors, authorNameAccessor, authorIdAccessor) => {
+export default (rawContent, meta, authors, authorNameAccessor, authorIdAccessor, defaultPublish = true) => {
   const rawComments = parseRawComments(rawContent);
   if (!rawComments) {
     return {
@@ -54,7 +54,7 @@ export default (rawContent, meta, authors, authorNameAccessor, authorIdAccessor)
 
     const marker = new Marker();
     c.tags = {};
-    c.published = false;
+    c.published = defaultPublish;
     c.replies.forEach(r => {
       const matchKeyValue = KEY_VALUE_REGEX.exec(r.content);
       if (matchKeyValue) {

@@ -30,7 +30,7 @@ export const formatText = str => {
     // >> seems to be used instead of repeating speaker prompts in back and forths
     .replace(/\s*>>\s*/g, '\n\n>> ')
     // Put speaker prompts on new lines
-    .replace(/(\.|"|!|\?|—)?\s*([a-zA-Z. ]{2,30}:)/g, '$1\n\n$2');
+    .replace(/(\.|"|!|\?|—)\s*([a-zA-Z. ]{2,30}:)/g, '$1\n\n$2');
 
   return ret;
 };

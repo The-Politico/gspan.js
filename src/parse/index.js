@@ -33,7 +33,7 @@ export default async function (
   // parse raw data into workable data structure
   const [transcriptRaw, footerRaw] = splitRaw(raw);
   const transcript = parseTranscript(transcriptRaw);
-  const {activeAuthors, comments} = parseComments(footerRaw, commentsMeta, authors, config.authorNameAccessor, config.authorIdAccessor);
+  const {activeAuthors, comments} = parseComments(footerRaw, commentsMeta, authors, config.authorNameAccessor, config.authorIdAccessor, config.defaultPublish);
   const live = isLive(raw);
 
   // merge transcript and comments
