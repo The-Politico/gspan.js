@@ -4,7 +4,7 @@ var _expect = require("expect.js");
 
 var _expect2 = _interopRequireDefault(_expect);
 
-var _marker = require("../marker");
+var _marker = require("../parse/marker");
 
 var _marker2 = _interopRequireDefault(_marker);
 

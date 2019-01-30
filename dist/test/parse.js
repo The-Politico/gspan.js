@@ -4,18 +4,18 @@ var _expect = require("expect.js");
 
 var _expect2 = _interopRequireDefault(_expect);
 
-var _index = require("../index");
+var _index = require("../parse/index");
 
 var _index2 = _interopRequireDefault(_index);
 
-var _isLive = require("../utils/isLive");
+var _isLive = require("../parse/utils/isLive");
 
 var _isLive2 = _interopRequireDefault(_isLive);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const TEST_DOC = '1uD3QH9TJTUbmD76c3ELRgfWDszY68NgwovF3iUf3RvE';
-describe('GSpan', () => {
+describe('GSpan Parse', () => {
   let content, live, users;
   before(async function () {
     const transcript = await (0, _index2.default)(TEST_DOC, null, {

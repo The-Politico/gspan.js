@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
-import gspan from './index';
+import parse from './index';
 
 yargs.help() // eslint-disable-line
-  .scriptName('gspan')
+  .scriptName('gspan-parse')
   .command('download <doc> [directory]', 'Downloads a GSpan doc as a JSON file.', (yargs) => {
     yargs
       .positional('doc', {
@@ -15,7 +15,7 @@ yargs.help() // eslint-disable-line
         type: 'string',
       });
   }, async function (argv) {
-    const transcript = await gspan(argv.doc, argv.directory, argv);
+    const transcript = await parse(argv.doc, argv.directory, argv);
     if (!argv.directory) {
       console.log(JSON.stringify(transcript));
     }
