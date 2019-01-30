@@ -17,9 +17,13 @@ var _sync = require("csv-parse/lib/sync");
 
 var _sync2 = _interopRequireDefault(_sync);
 
+var _path = require("path");
+
+var _path2 = _interopRequireDefault(_path);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const words = (0, _sync2.default)(_fs2.default.readFileSync('words.csv'));
+const words = (0, _sync2.default)(_fs2.default.readFileSync(_path2.default.join(__dirname, 'words.csv')));
 
 const formatText = exports.formatText = str => {
   var ret = str.toLowerCase().replace('\r\n', ' '); // remove random line breaks

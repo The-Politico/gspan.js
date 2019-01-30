@@ -1,8 +1,9 @@
 import capitalize from 'lodash/capitalize';
 import fs from 'fs';
 import parseCsv from 'csv-parse/lib/sync';
+import path from 'path';
 
-const words = parseCsv(fs.readFileSync('words.csv'));
+const words = parseCsv(fs.readFileSync(path.join(__dirname, 'words.csv')));
 
 export const formatText = str => {
   var ret = str.toLowerCase().replace('\r\n', ' '); // remove random line breaks

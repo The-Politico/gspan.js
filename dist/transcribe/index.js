@@ -51,13 +51,12 @@ const start = exports.start = (doc, cache, callback, limit = null, timestamp, it
 
 exports.default = (doc, limit) => {
   // Where we stash our stuff
-  let backup = null; // try {
-  //   backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
-  // } catch (e) {
-  //
-  // }
+  let backup = null;
 
-  backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+  try {
+    backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+  } catch (e) {}
+
   const cache = backup || []; // Setup a cache buster so our cache doesn't use all the memory
 
   const cacheCheckInterval = 5 * 60 * 1000; // 5 mins -> microseconds

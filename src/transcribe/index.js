@@ -30,12 +30,9 @@ export const start = (doc, cache, callback, limit = null, timestamp, iteration =
 export default (doc, limit) => {
   // Where we stash our stuff
   let backup = null;
-  // try {
-  //   backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
-  // } catch (e) {
-  //
-  // }
-  backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+  try {
+    backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
+  } catch (e) {}
 
   const cache = backup || [];
 
