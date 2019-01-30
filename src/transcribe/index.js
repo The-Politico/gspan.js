@@ -1,14 +1,14 @@
 import io from 'socket.io-client';
+import fs from 'fs';
 import { google } from '@politico/interactive-bin';
 import { formatText, formatTranscript } from './utils/format';
-import getWordsSince from './utils/getWordsSince';
-import cleanCache from './utils/cleanCache';
 import backupCache from './utils/backupCache';
 
 const docsAPI = new google.Docs();
 
 export const start = (doc, cache, callback, limit = null, timestamp, iteration = 0) => {
-  const text = formatTranscript(formatText(getWordsSince(cache, timestamp)));
+  const text = formatTranscript(formatText(cache.splice(0, cache.length).join(' ')));
+
   if (text.length === 1) {
     if (/^<.*>:.*$/.test(text[0])) {
       docsAPI.append(doc, `\n\n${text[0]}`);
@@ -28,29 +28,33 @@ export const start = (doc, cache, callback, limit = null, timestamp, iteration =
   }
 };
 
-export default (doc, limit, useBackup = false, verbose = false) => {
-  let cache = [];
+export default async function (doc, limit, useBackup = false, verbose = false) {
+  const cache = [];
 
   if (useBackup) {
     let backup = null;
     try {
-      backup = require(`${process.cwd()}/gspan-transcript-backup.json`);
-      cache = backup;
-    } catch (e) {}
+      backup = fs.readFileSync('transcript.txt', 'utf8');
+      const d = new Date();
+      d.setDate(d.getDate() - 100);
+
+      cache.push(backup);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  // Setup a cache buster so our cache doesn't use all the memory
-  const cacheCheckInterval = 5 * 60 * 1000; // 5 mins -> microseconds
-  setInterval(() => { cleanCache(cache); }, cacheCheckInterval);
+  const backupStream = fs.createWriteStream('transcript.txt', {flags: 'a'});
 
   const socket = io.connect('https://openedcaptions.com:443');
   socket.on('content', data => {
     if (data.data.body === '\r\n') { return; }
-    const dat = {t: Date.now(), r: data.data.body};
-    backupCache(cache);
+    const dat = data.data.body;
+
+    backupCache(backupStream, ` ${dat}`);
 
     if (verbose) {
-      console.log(dat.t, dat.r);
+      console.log(Date.now(), dat);
     }
 
     cache.push(dat);
