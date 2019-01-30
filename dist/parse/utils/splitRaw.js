@@ -5,15 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = raw => {
-  let output = raw.split('________________\r\n^^^^^^^^^^ DO NOT WRITE BELOW THIS LINE ^^^^^^^^^^');
-
-  if (output.length === 1) {
-    output = raw.split('________________\r\n-------> LIVE TRANSCRIPT HAS ENDED <-----------');
-  }
-
-  if (output.length === 1) {
-    return [null, null];
-  }
-
-  return output;
+  const rgx = /\n\[a\]\w/.exec(raw);
+  const docEnd = rgx ? rgx.index : raw.length;
+  return [raw.substring(0, docEnd), raw.substring(docEnd)];
 };

@@ -1,12 +1,9 @@
 export default raw => {
-  let output = raw.split('________________\r\n^^^^^^^^^^ DO NOT WRITE BELOW THIS LINE ^^^^^^^^^^');
-  if (output.length === 1) {
-    output = raw.split('________________\r\n-------> LIVE TRANSCRIPT HAS ENDED <-----------');
-  }
+  const rgx = /\n\[a\]\w/.exec(raw);
+  const docEnd = rgx ? rgx.index : raw.length;
 
-  if (output.length === 1) {
-    return [ null, null ];
-  }
-
-  return output;
+  return [
+    raw.substring(0, docEnd),
+    raw.substring(docEnd),
+  ];
 };
