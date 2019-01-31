@@ -5,8 +5,13 @@ import format from '../transcribe/utils/format';
 const TEST_DOC = '1WazH8mGZUtMC0qOxh-BIsnmoAj9WwC25JEndUsb5lYc';
 
 describe('Gspan Transcribe', () => {
-  it('Works', async function () {
-    await transcribe(TEST_DOC, 5);
+  // it('Works', async function () {
+  //   await transcribe(TEST_DOC, 5);
+  // });
+
+  it('Formats ends of sentences.', async function () {
+    const speaker = format('END OF A SENTENCE. SOME MORE WORDS');
+    expect(speaker).to.be(' end of a sentence. Some more words');
   });
 
   it('Formats speakers at the start of an input', async function () {

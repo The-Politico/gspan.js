@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = async function (doc, limit, fillBackup = false, backupName = 'transcript.txt', verbose = false) {
+  const cache = [];
+
   if (fillBackup) {
     let backup = null;
 
@@ -27,6 +29,7 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
     const socket = _socket2.default.connect('https://openedcaptions.com:443');
 
     let iter = 0;
+    let endedInPeriod = false;
     socket.on('content', data => {
       if (data.data.body === '\r\n') {
         return;
@@ -39,8 +42,20 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
         console.log(Date.now(), dat);
       }
 
-      const text = (0, _format2.default)(dat);
-      (0, _writeToDoc2.default)(docsAPI, doc, text);
+      let formatted = (0, _format2.default)(dat);
+
+      if (endedInPeriod) {
+        formatted = formatted.replace(/(\w)/, (a, b) => b.toUpperCase());
+      }
+
+      cache.push(formatted);
+
+      if (formatted.match(/\.\s*$/)) {
+        endedInPeriod = true;
+      } else {
+        endedInPeriod = false;
+      }
+
       iter++;
 
       if (limit && iter === limit) {
@@ -48,6 +63,10 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
         socket.disconnect();
       }
     });
+    setInterval(() => {
+      const text = (0, _getCache2.default)(cache);
+      (0, _writeToDoc2.default)(docsAPI, doc, text);
+    }, 2500);
   });
 };
 
@@ -72,6 +91,10 @@ var _backupCache2 = _interopRequireDefault(_backupCache);
 var _writeToDoc = require("./utils/writeToDoc");
 
 var _writeToDoc2 = _interopRequireDefault(_writeToDoc);
+
+var _getCache = require("./utils/getCache");
+
+var _getCache2 = _interopRequireDefault(_getCache);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
