@@ -52,16 +52,21 @@ _yargs2.default // eslint-disable-line
     alias: 'v',
     describe: 'Log new entries in the console',
     type: 'boolean'
-  }).option('backup', {
+  }).option('backfill', {
     alias: 'b',
     default: false,
     describe: 'Start from a saved backup file',
     type: 'boolean'
+  }).option('backupFile', {
+    alias: 'f',
+    default: 'transcript.txt',
+    describe: 'A path/filename to save a backup file',
+    type: 'string'
   }).option('limit', {
     alias: 'l',
     describe: 'A limit of iterations.',
     type: 'number'
   });
 }, async function (argv) {
-  await (0, _index4.default)(argv.doc, argv.limit, argv.backup, argv.verbose);
+  await (0, _index4.default)(argv.doc, argv.limit, argv.backfill, argv.backupFile, argv.verbose);
 }).argv;

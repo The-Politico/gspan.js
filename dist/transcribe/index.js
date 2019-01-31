@@ -4,14 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = async function (doc, limit, useBackup = false, verbose = false) {
+exports.default = async function (doc, limit, fillBackup = false, backupName = 'transcript.txt', verbose = false) {
   const cache = [];
 
-  if (useBackup) {
+  if (fillBackup) {
     let backup = null;
 
     try {
-      backup = _fs2.default.readFileSync('transcript.txt', 'utf8');
+      backup = _fs2.default.readFileSync(backupName, 'utf8');
       const d = new Date();
       d.setDate(d.getDate() - 100);
       cache.push(backup);
@@ -20,7 +20,7 @@ exports.default = async function (doc, limit, useBackup = false, verbose = false
     }
   }
 
-  const backupStream = _fs2.default.createWriteStream('transcript.txt', {
+  const backupStream = _fs2.default.createWriteStream(backupName, {
     flags: 'a'
   });
 
@@ -34,7 +34,7 @@ exports.default = async function (doc, limit, useBackup = false, verbose = false
       }
 
       const dat = data.data.body;
-      (0, _backupCache2.default)(backupStream, ` ${dat}`);
+      (0, _backupCache2.default)(backupStream, ` ${dat}`, backupName);
 
       if (verbose) {
         console.log(Date.now(), dat);

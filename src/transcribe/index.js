@@ -6,13 +6,13 @@ import backupCache from './utils/backupCache';
 
 const docsAPI = new google.Docs();
 
-export default async function (doc, limit, useBackup = false, verbose = false) {
+export default async function (doc, limit, fillBackup = false, backupName = 'transcript.txt', verbose = false) {
   const cache = [];
 
-  if (useBackup) {
+  if (fillBackup) {
     let backup = null;
     try {
-      backup = fs.readFileSync('transcript.txt', 'utf8');
+      backup = fs.readFileSync(backupName, 'utf8');
       const d = new Date();
       d.setDate(d.getDate() - 100);
 
@@ -22,7 +22,7 @@ export default async function (doc, limit, useBackup = false, verbose = false) {
     }
   }
 
-  const backupStream = fs.createWriteStream('transcript.txt', {flags: 'a'});
+  const backupStream = fs.createWriteStream(backupName, {flags: 'a'});
 
   return new Promise(resolve => {
     const socket = io.connect('https://openedcaptions.com:443');
@@ -32,7 +32,7 @@ export default async function (doc, limit, useBackup = false, verbose = false) {
       if (data.data.body === '\r\n') { return; }
       const dat = data.data.body;
 
-      backupCache(backupStream, ` ${dat}`);
+      backupCache(backupStream, ` ${dat}`, backupName);
 
       if (verbose) {
         console.log(Date.now(), dat);

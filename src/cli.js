@@ -51,11 +51,17 @@ yargs // eslint-disable-line
         describe: 'Log new entries in the console',
         type: 'boolean',
       })
-      .option('backup', {
+      .option('backfill', {
         alias: 'b',
         default: false,
         describe: 'Start from a saved backup file',
         type: 'boolean',
+      })
+      .option('backupFile', {
+        alias: 'f',
+        default: 'transcript.txt',
+        describe: 'A path/filename to save a backup file',
+        type: 'string',
       })
       .option('limit', {
         alias: 'l',
@@ -63,6 +69,6 @@ yargs // eslint-disable-line
         type: 'number',
       });
   }, async function (argv) {
-    await transcribe(argv.doc, argv.limit, argv.backup, argv.verbose);
+    await transcribe(argv.doc, argv.limit, argv.backfill, argv.backupFile, argv.verbose);
   })
   .argv;
