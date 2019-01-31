@@ -4,19 +4,19 @@ var _expect = require("expect.js");
 
 var _expect2 = _interopRequireDefault(_expect);
 
+var _fsExtra = require("fs-extra");
+
+var _fsExtra2 = _interopRequireDefault(_fsExtra);
+
 var _index = require("../parse/index");
 
 var _index2 = _interopRequireDefault(_index);
-
-var _isLive = require("../parse/utils/isLive");
-
-var _isLive2 = _interopRequireDefault(_isLive);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const TEST_DOC = '1uD3QH9TJTUbmD76c3ELRgfWDszY68NgwovF3iUf3RvE';
 describe('GSpan Parse', () => {
-  let content, live, users;
+  let content, users;
   before(async function () {
     const transcript = await (0, _index2.default)(TEST_DOC, null, {
       authorAPI: 'https://politicoapps.com/staff/api/staffer/',
@@ -24,16 +24,14 @@ describe('GSpan Parse', () => {
       authorIdAccessor: 'username'
     });
     content = transcript.content;
-    live = transcript.live;
     users = transcript.users; // console.log(transcript);
-    // console.log(transcript.content[1].annotations[0]);
+    // console.log(transcript.content[3].annotations[1]);
     // content.forEach((v, i) => console.log(i, v));
   });
   it('Loads the Google Doc', () => {
     (0, _expect2.default)(content).to.be.an('array');
   });
   it('Parses the doc into elements', () => {
-    (0, _expect2.default)(live).to.be(false);
     (0, _expect2.default)(content.length).to.be(16);
     (0, _expect2.default)(users).to.be.an('object');
     (0, _expect2.default)(users).to.have.property('abriz@politico.com');
@@ -150,6 +148,15 @@ describe('GSpan Parse', () => {
     const annotationThree = grafTwo.annotations[0];
     (0, _expect2.default)(annotationThree.published).to.be(true);
   });
+  it('Handles annotation edits', () => {
+    const graf = content[3];
+    const annotationTwo = graf.annotations[1];
+    (0, _expect2.default)(annotationTwo.text).to.be('Here\'s a comment.');
+    (0, _expect2.default)(annotationTwo.original).to.be('Here\'s a coment');
+    (0, _expect2.default)(annotationTwo.tags).to.not.have.property('Edited');
+    const annotationOne = graf.annotations[0];
+    (0, _expect2.default)(annotationOne).to.not.have.property('original');
+  });
   it('Handles annotation user matching', () => {
     const graf = content[1];
     (0, _expect2.default)(graf.annotations.length).to.be.above(0);
@@ -178,20 +185,33 @@ describe('GSpan Parse', () => {
       (0, _expect2.default)(g.id).to.be(transcriptTwo.content[idx].id);
     });
   });
-  it('Parses different "live" states', () => {
-    (0, _expect2.default)((0, _isLive2.default)(`
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      ^^^^^^^^^^ DO NOT WRITE BELOW THIS LINE ^^^^^^^^^^
-      `)).to.be(true);
-    (0, _expect2.default)((0, _isLive2.default)(`
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      -------> LIVE TRANSCRIPT HAS ENDED <-----------
-      `)).to.be(false);
-    (0, _expect2.default)((0, _isLive2.default)(`
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      `)).to.be(false);
+});
+describe('Gspan Parse Download', () => {
+  before(async function () {
+    try {
+      await _fsExtra2.default.access('.temp');
+    } catch (err) {
+      await _fsExtra2.default.mkdir('.temp');
+    }
+
+    await (0, _index2.default)(TEST_DOC, '.temp/data.json', {
+      authorAPI: 'https://politicoapps.com/staff/api/staffer/',
+      authorNameAccessor: 'profile.google_display_name',
+      authorIdAccessor: 'username'
+    });
+  });
+  it('Downloads a file', async function () {
+    const data = await _fsExtra2.default.readJSON('.temp/data.json');
+    const {
+      content,
+      users
+    } = data;
+    (0, _expect2.default)(content.length).to.be(16);
+    (0, _expect2.default)(users).to.be.an('object');
+    (0, _expect2.default)(users).to.have.property('abriz@politico.com');
+  });
+  after(async function () {
+    await _fsExtra2.default.unlink('.temp/data.json');
+    await _fsExtra2.default.rmdir('.temp');
   });
 });

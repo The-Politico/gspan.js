@@ -5,7 +5,6 @@ import parseTranscript from './transcript';
 import parseComments from './comments';
 import splitRaw from './utils/splitRaw';
 import mergeTranscriptComments from './utils/mergeTranscriptComments';
-import isLive from './utils/isLive';
 import makeID from './utils/makeID';
 
 export default async function (
@@ -34,13 +33,11 @@ export default async function (
   const [transcriptRaw, footerRaw] = splitRaw(raw);
   const transcript = parseTranscript(transcriptRaw);
   const {activeAuthors, comments} = parseComments(footerRaw, commentsMeta, authors, config.authorNameAccessor, config.authorIdAccessor, config.defaultPublish);
-  const live = isLive(raw);
 
   // merge transcript and comments
   const content = mergeTranscriptComments(transcript, comments).map((c, idx, full) => makeID(c, idx, full));
 
   const output = {
-    live,
     users: activeAuthors,
     content,
   };

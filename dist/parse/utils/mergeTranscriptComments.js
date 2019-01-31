@@ -115,7 +115,7 @@ exports.default = (transcript, comments) => {
         }
       }
 
-      return {
+      const merged = {
         id: comment.id,
         author: comment.author,
         text: marker.mark(comment.content),
@@ -123,6 +123,12 @@ exports.default = (transcript, comments) => {
         published: comment.published,
         location: location
       };
+
+      if (comment.original) {
+        merged.original = comment.original;
+      }
+
+      return merged;
     }).filter(a => a);
     return b;
   });

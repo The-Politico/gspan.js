@@ -27,12 +27,10 @@ exports.default = async function (fileId, directory, config = {}) {
   const {
     activeAuthors,
     comments
-  } = (0, _comments2.default)(footerRaw, commentsMeta, authors, config.authorNameAccessor, config.authorIdAccessor, config.defaultPublish);
-  const live = (0, _isLive2.default)(raw); // merge transcript and comments
+  } = (0, _comments2.default)(footerRaw, commentsMeta, authors, config.authorNameAccessor, config.authorIdAccessor, config.defaultPublish); // merge transcript and comments
 
   const content = (0, _mergeTranscriptComments2.default)(transcript, comments).map((c, idx, full) => (0, _makeID2.default)(c, idx, full));
   const output = {
-    live,
     users: activeAuthors,
     content
   };
@@ -69,10 +67,6 @@ var _splitRaw2 = _interopRequireDefault(_splitRaw);
 var _mergeTranscriptComments = require("./utils/mergeTranscriptComments");
 
 var _mergeTranscriptComments2 = _interopRequireDefault(_mergeTranscriptComments);
-
-var _isLive = require("./utils/isLive");
-
-var _isLive2 = _interopRequireDefault(_isLive);
 
 var _makeID = require("./utils/makeID");
 

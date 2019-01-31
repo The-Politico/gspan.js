@@ -1,11 +1,11 @@
 import expect from 'expect.js';
+import fs from 'fs-extra';
 import gspan from '../parse/index';
-import isLive from '../parse/utils/isLive';
 
 const TEST_DOC = '1uD3QH9TJTUbmD76c3ELRgfWDszY68NgwovF3iUf3RvE';
 
 describe('GSpan Parse', () => {
-  let content, live, users;
+  let content, users;
 
   before(async function () {
     const transcript = await gspan(TEST_DOC, null, {
@@ -15,11 +15,10 @@ describe('GSpan Parse', () => {
     });
 
     content = transcript.content;
-    live = transcript.live;
     users = transcript.users;
 
     // console.log(transcript);
-    // console.log(transcript.content[1].annotations[0]);
+    // console.log(transcript.content[3].annotations[1]);
     // content.forEach((v, i) => console.log(i, v));
   });
 
@@ -28,7 +27,6 @@ describe('GSpan Parse', () => {
   });
 
   it('Parses the doc into elements', () => {
-    expect(live).to.be(false);
     expect(content.length).to.be(16);
     expect(users).to.be.an('object');
     expect(users).to.have.property('abriz@politico.com');
@@ -224,6 +222,18 @@ describe('GSpan Parse', () => {
     expect(annotationThree.published).to.be(true);
   });
 
+  it('Handles annotation edits', () => {
+    const graf = content[3];
+
+    const annotationTwo = graf.annotations[1];
+    expect(annotationTwo.text).to.be('Here\'s a comment.');
+    expect(annotationTwo.original).to.be('Here\'s a coment');
+    expect(annotationTwo.tags).to.not.have.property('Edited');
+
+    const annotationOne = graf.annotations[0];
+    expect(annotationOne).to.not.have.property('original');
+  });
+
   it('Handles annotation user matching', () => {
     const graf = content[1];
     expect(graf.annotations.length).to.be.above(0);
@@ -258,29 +268,34 @@ describe('GSpan Parse', () => {
       expect(g.id).to.be(transcriptTwo.content[idx].id);
     });
   });
+});
 
-  it('Parses different "live" states', () => {
-    expect(isLive(
-      `
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      ^^^^^^^^^^ DO NOT WRITE BELOW THIS LINE ^^^^^^^^^^
-      `
-    )).to.be(true);
+describe('Gspan Parse Download', () => {
+  before(async function () {
+    try {
+      await fs.access('.temp');
+    } catch (err) {
+      await fs.mkdir('.temp');
+    }
 
-    expect(isLive(
-      `
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      -------> LIVE TRANSCRIPT HAS ENDED <-----------
-      `
-    )).to.be(false);
+    await gspan(TEST_DOC, '.temp/data.json', {
+      authorAPI: 'https://politicoapps.com/staff/api/staffer/',
+      authorNameAccessor: 'profile.google_display_name',
+      authorIdAccessor: 'username',
+    });
+  });
 
-    expect(isLive(
-      `
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      `
-    )).to.be(false);
+  it('Downloads a file', async function () {
+    const data = await fs.readJSON('.temp/data.json');
+
+    const {content, users} = data;
+    expect(content.length).to.be(16);
+    expect(users).to.be.an('object');
+    expect(users).to.have.property('abriz@politico.com');
+  });
+
+  after(async function () {
+    await fs.unlink('.temp/data.json');
+    await fs.rmdir('.temp');
   });
 });

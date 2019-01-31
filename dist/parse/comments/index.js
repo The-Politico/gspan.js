@@ -85,6 +85,12 @@ exports.default = (rawContent, meta, authors, authorNameAccessor, authorIdAccess
       const matchKeyValue = KEY_VALUE_REGEX.exec(r.content);
 
       if (matchKeyValue) {
+        if (matchKeyValue[1] === 'Edited' || matchKeyValue[1] === 'edited') {
+          c.original = c.content;
+          c.content = marker.mark(matchKeyValue[2]);
+          return null;
+        }
+
         c.tags[matchKeyValue[1]] = marker.mark(matchKeyValue[2]);
         return null;
       }
