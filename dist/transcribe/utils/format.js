@@ -78,3 +78,5 @@ const formatTranscript = exports.formatTranscript = blob => {
 
   return formattedParagraphs;
 };
+
+exports.default = words => formatTranscript(formatText(words));

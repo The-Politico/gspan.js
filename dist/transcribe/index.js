@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = async function (doc, limit, fillBackup = false, backupName = 'transcript.txt', verbose = false) {
-  const cache = [];
-
   if (fillBackup) {
     let backup = null;
 
@@ -14,7 +12,8 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
       backup = _fs2.default.readFileSync(backupName, 'utf8');
       const d = new Date();
       d.setDate(d.getDate() - 100);
-      cache.push(backup);
+      const text = (0, _format2.default)(backup);
+      (0, _writeToDoc2.default)(docsAPI, doc, text);
     } catch (e) {
       console.error(e);
     }
@@ -40,18 +39,8 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
         console.log(Date.now(), dat);
       }
 
-      const text = (0, _format.formatTranscript)((0, _format.formatText)(dat));
-
-      if (text.length === 1) {
-        if (/^<.*>:.*$/.test(text[0])) {
-          docsAPI.append(doc, `\n\n${text[0]}`);
-        } else {
-          docsAPI.append(doc, ` ${text[0]}`);
-        }
-      } else if (text.length > 1) {
-        docsAPI.append(doc, ` ${text.join('\n\n')}`);
-      }
-
+      const text = (0, _format2.default)(dat);
+      (0, _writeToDoc2.default)(docsAPI, doc, text);
       iter++;
 
       if (limit && iter === limit) {
@@ -74,9 +63,15 @@ var _interactiveBin = require("@politico/interactive-bin");
 
 var _format = require("./utils/format");
 
+var _format2 = _interopRequireDefault(_format);
+
 var _backupCache = require("./utils/backupCache");
 
 var _backupCache2 = _interopRequireDefault(_backupCache);
+
+var _writeToDoc = require("./utils/writeToDoc");
+
+var _writeToDoc2 = _interopRequireDefault(_writeToDoc);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

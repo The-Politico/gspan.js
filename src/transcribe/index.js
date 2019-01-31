@@ -1,14 +1,13 @@
 import io from 'socket.io-client';
 import fs from 'fs';
 import { google } from '@politico/interactive-bin';
-import { formatText, formatTranscript } from './utils/format';
+import format from './utils/format';
 import backupCache from './utils/backupCache';
+import writeToDoc from './utils/writeToDoc';
 
 const docsAPI = new google.Docs();
 
 export default async function (doc, limit, fillBackup = false, backupName = 'transcript.txt', verbose = false) {
-  const cache = [];
-
   if (fillBackup) {
     let backup = null;
     try {
@@ -16,7 +15,8 @@ export default async function (doc, limit, fillBackup = false, backupName = 'tra
       const d = new Date();
       d.setDate(d.getDate() - 100);
 
-      cache.push(backup);
+      const text = format(backup);
+      writeToDoc(docsAPI, doc, text);
     } catch (e) {
       console.error(e);
     }
@@ -38,17 +38,8 @@ export default async function (doc, limit, fillBackup = false, backupName = 'tra
         console.log(Date.now(), dat);
       }
 
-      const text = formatTranscript(formatText(dat));
-
-      if (text.length === 1) {
-        if (/^<.*>:.*$/.test(text[0])) {
-          docsAPI.append(doc, `\n\n${text[0]}`);
-        } else {
-          docsAPI.append(doc, ` ${text[0]}`);
-        }
-      } else if (text.length > 1) {
-        docsAPI.append(doc, ` ${text.join('\n\n')}`);
-      }
+      const text = format(dat);
+      writeToDoc(docsAPI, doc, text);
 
       iter++;
       if (limit && iter === limit) {
