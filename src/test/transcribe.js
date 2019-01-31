@@ -2,7 +2,7 @@ import expect from 'expect.js';
 import transcribe from '../transcribe/';
 import format from '../transcribe/utils/format';
 
-const TEST_DOC = '1QF0A7FHe6-rf-_rIR4_kKSwJj5fg96IUvwQbQdpiFQw';
+const TEST_DOC = '1WazH8mGZUtMC0qOxh-BIsnmoAj9WwC25JEndUsb5lYc';
 
 describe('Gspan Transcribe', () => {
   it('Works', async function () {
@@ -11,40 +11,36 @@ describe('Gspan Transcribe', () => {
 
   it('Formats speakers at the start of an input', async function () {
     const speaker = format('MR. BRIZ: HELLO');
-    expect(speaker).to.be.an('array');
-    expect(speaker[0]).to.be('<MR. BRIZ>: Hello');
+    expect(speaker).to.be('\n\n<MR. BRIZ>: Hello');
   });
 
   it('Formats speakers in the middle of an input', async function () {
     const speaker = format('END OF A SENTENCE. MR. BRIZ: HELLO');
-    expect(speaker).to.be.an('array');
-    expect(speaker[0]).to.be('end of a sentence.');
-    expect(speaker[1]).to.be('<MR. BRIZ>: Hello');
+    expect(speaker).to.be(' end of a sentence.\n\n<MR. BRIZ>: Hello');
+  });
+
+  it('Formats solo speakers', async function () {
+    const soundbite = format('MR. BRIZ:');
+    expect(soundbite).to.be('\n\n<MR. BRIZ>:');
   });
 
   it('Formats line breaks', async function () {
     const speaker = format('END OF A SENTENCE. >> ANOTHER PARAGRAPH.');
-    expect(speaker).to.be.an('array');
-    expect(speaker[0]).to.be('end of a sentence.');
-    expect(speaker[1]).to.be('Another paragraph.');
+    expect(speaker).to.be(' end of a sentence.\n\nAnother paragraph.');
   });
 
   it('Formats soundbites', async function () {
-    const soundbiteSolo = format('[APPLAUSE]');
-    expect(soundbiteSolo[0]).to.be(':[(applause)]');
-
     const soundbite = format('END OF A SENTENCE. [APPLAUSE] SOME MORE WORDS.');
-    expect(soundbite).to.be.an('array');
-    expect(soundbite[0]).to.be('end of a sentence.');
-    expect(soundbite[1]).to.be(':[(applause)]');
-    expect(soundbite[2]).to.be('some more words.');
+    expect(soundbite).to.be(' end of a sentence.\n\n:[(applause)]\n\nsome more words.');
+  });
+
+  it('Formats solo soundbites', async function () {
+    const soundbite = format('[APPLAUSE]');
+    expect(soundbite).to.be('\n\n:[(applause)]');
   });
 
   it('Formats complex combinations', async function () {
     const soundbite = format('END OF A SENTENCE. [APPLAUSE] ANDREW BRIZ: SOME MORE WORDS.');
-    expect(soundbite).to.be.an('array');
-    expect(soundbite[0]).to.be('end of a sentence.');
-    expect(soundbite[1]).to.be(':[(applause)]');
-    expect(soundbite[2]).to.be('<ANDREW BRIZ>: Some more words.');
+    expect(soundbite).to.be(' end of a sentence.\n\n:[(applause)]\n\n<ANDREW BRIZ>: Some more words.');
   });
 });

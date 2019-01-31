@@ -79,4 +79,16 @@ const formatTranscript = exports.formatTranscript = blob => {
   return formattedParagraphs;
 };
 
-exports.default = words => formatTranscript(formatText(words));
+exports.default = words => {
+  const text = formatTranscript(formatText(words));
+
+  if (text.length === 1) {
+    if (/^<.*>:.*$/.test(text[0]) || /^:\[\(\w*\)\]$/.test(text[0])) {
+      return `\n\n${text[0]}`;
+    } else {
+      return ` ${text[0]}`;
+    }
+  } else if (text.length > 1) {
+    return ` ${text.join('\n\n')}`;
+  }
+};
