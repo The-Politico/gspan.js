@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import chalk from 'chalk';
 import Marker from '../marker';
 import parseRawComments from './parseRawComments';
+import findDuplicates from '../utils/findDuplicates';
 
 const LINE_BREAKS = /\n|\r/g;
 const KEY_VALUE_REGEX = /^([^\s]*)\s*:\s*((?:.|\s)*)$/;
@@ -19,6 +20,14 @@ export default (rawContent, meta, authors, authorNameAccessor, authorIdAccessor,
       activeAuthors: {},
     };
   }
+
+  findDuplicates(meta).forEach(d => {
+    console.warn(chalk.yellow(
+      `⚠️ GSpan Warning: Found duplicate comment: "${d.content}". ` +
+      `Make sure all comments are unique. ` +
+      `Will ignore all subsequent duplicates. ⚠️`
+    ));
+  });
 
   const activeAuthors = {};
 

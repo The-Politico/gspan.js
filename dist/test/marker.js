@@ -21,6 +21,9 @@ describe('Marker', () => {
   it('Parses named links', function () {
     (0, _expect2.default)(marker.mark('... [a named link in]http://site.com?id=asd ...')).to.be('... [a named link in](http://site.com?id=asd) ...');
   });
+  it('Parses named links with periods', function () {
+    (0, _expect2.default)(marker.mark('... [a named link in.]http://site.com?id=asd ...')).to.be('... [a named link in.](http://site.com?id=asd) ...');
+  });
   it('Parses unnamed links', function () {
     (0, _expect2.default)(marker.mark('... http://site.com ...')).to.be('... [http://site.com](http://site.com) ...');
   });

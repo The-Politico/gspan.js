@@ -32,7 +32,7 @@ class Marker {
     );
 
     this.marked = re.sub(
-      `\\[([\\w ']+?)\\]\\[${URL_PATTERN}\\]\\((${URL_PATTERN})\\)`,
+      `\\[([\\w '.]+?)\\]\\[${URL_PATTERN}\\]\\((${URL_PATTERN})\\)`,
       '[$1]($2)',
       this.marked,
     );

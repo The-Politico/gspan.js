@@ -16,6 +16,10 @@ describe('Marker', () => {
     expect(marker.mark('... [a named link in]http://site.com?id=asd ...')).to.be('... [a named link in](http://site.com?id=asd) ...');
   });
 
+  it('Parses named links with periods', function () {
+    expect(marker.mark('... [a named link in.]http://site.com?id=asd ...')).to.be('... [a named link in.](http://site.com?id=asd) ...');
+  });
+
   it('Parses unnamed links', function () {
     expect(marker.mark('... http://site.com ...')).to.be('... [http://site.com](http://site.com) ...');
   });

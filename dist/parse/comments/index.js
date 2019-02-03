@@ -28,6 +28,10 @@ var _parseRawComments = require("./parseRawComments");
 
 var _parseRawComments2 = _interopRequireDefault(_parseRawComments);
 
+var _findDuplicates = require("../utils/findDuplicates");
+
+var _findDuplicates2 = _interopRequireDefault(_findDuplicates);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const LINE_BREAKS = /\n|\r/g;
@@ -45,6 +49,9 @@ exports.default = (rawContent, meta, authors, authorNameAccessor, authorIdAccess
     };
   }
 
+  (0, _findDuplicates2.default)(meta).forEach(d => {
+    console.warn(_chalk2.default.yellow(`⚠️ GSpan Warning: Found duplicate comment: "${d.content}". ` + `Make sure all comments are unique. ` + `Will ignore all subsequent duplicates. ⚠️`));
+  });
   const activeAuthors = {};
   const comments = meta.map(c => {
     if (!c.quotedFileContent) {
