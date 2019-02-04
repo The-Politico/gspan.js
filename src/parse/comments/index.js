@@ -73,7 +73,7 @@ export default (rawContent, meta, authors, authorNameAccessor, authorIdAccessor,
           return null;
         }
 
-        c.tags[matchKeyValue[1]] = marker.mark(matchKeyValue[2]);
+        c.tags[matchKeyValue[1]] = matchKeyValue[2];
         return null;
       }
 
