@@ -226,7 +226,7 @@ describe('GSpan Parse', () => {
     const graf = content[3];
 
     const annotationTwo = graf.annotations[1];
-    expect(annotationTwo.text).to.be('Here\'s a comment.');
+    expect(annotationTwo.text).to.be('Here\'s **a** comment.');
     expect(annotationTwo.original).to.be('Here\'s a coment');
     expect(annotationTwo.tags).to.not.have.property('Edited');
 

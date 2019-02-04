@@ -151,7 +151,7 @@ describe('GSpan Parse', () => {
   it('Handles annotation edits', () => {
     const graf = content[3];
     const annotationTwo = graf.annotations[1];
-    (0, _expect2.default)(annotationTwo.text).to.be('Here\'s a comment.');
+    (0, _expect2.default)(annotationTwo.text).to.be('Here\'s **a** comment.');
     (0, _expect2.default)(annotationTwo.original).to.be('Here\'s a coment');
     (0, _expect2.default)(annotationTwo.tags).to.not.have.property('Edited');
     const annotationOne = graf.annotations[0];
