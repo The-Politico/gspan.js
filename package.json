@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "nodemon --ignore dist --exec npm run build",
-    "build": "babel src --out-dir dist --copy-files --ignore \"src/example\",\"src/templates/**/page/\",\"src/templates/**/project/\"",
+    "build": "babel src --out-dir dist --copy-files",
     "test": "nyc mocha $(find dist/test -name '*.js') --timeout 30000"
   },
   "devDependencies": {

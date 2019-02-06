@@ -215,3 +215,19 @@ describe('Gspan Parse Download', () => {
     await _fsExtra2.default.rmdir('.temp');
   });
 });
+describe('Gspan Parse Blank', () => {
+  let transcript;
+  let content;
+  before(async function () {
+    transcript = await (0, _index2.default)('1RtyYihTWh7sTzmRyNGhHkHJW4wtxuKQODLmnxtFPefY', null, {
+      authorAPI: 'https://politicoapps.com/staff/api/staffer/',
+      authorNameAccessor: 'profile.google_display_name',
+      authorIdAccessor: 'username'
+    });
+    content = transcript.content;
+  });
+  it('Parses an empty file', async function () {
+    (0, _expect2.default)(content).to.be.an('array');
+    (0, _expect2.default)(content.length).to.be(1);
+  });
+});
