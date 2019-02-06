@@ -29,7 +29,7 @@ class Marker {
 
   markHyperlinks() {
     this.marked = _re2.default.sub(`(?!\\()(${URL_PATTERN})(?!\\))`, '[$1]($1)', this.marked);
-    this.marked = _re2.default.sub(`\\[([\\w '.]+?)\\]\\[${URL_PATTERN}\\]\\((${URL_PATTERN})\\)`, '[$1]($2)', this.marked);
+    this.marked = _re2.default.sub(`\\[([^[\\]]+?)\\]\\[${URL_PATTERN}\\]\\((${URL_PATTERN})\\)`, '[$1]($2)', this.marked);
   }
 
   markEmphasis(self) {

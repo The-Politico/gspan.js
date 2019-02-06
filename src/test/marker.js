@@ -16,8 +16,8 @@ describe('Marker', () => {
     expect(marker.mark('... [a named link in]http://site.com?id=asd ...')).to.be('... [a named link in](http://site.com?id=asd) ...');
   });
 
-  it('Parses named links with periods', function () {
-    expect(marker.mark('... [a named link in.]http://site.com?id=asd ...')).to.be('... [a named link in.](http://site.com?id=asd) ...');
+  it('Parses named links with punctuation', function () {
+    expect(marker.mark('... [a named, ?? link in.]http://site.com?id=asd ...')).to.be('... [a named, ?? link in.](http://site.com?id=asd) ...');
   });
 
   it('Parses unnamed links', function () {
@@ -26,6 +26,10 @@ describe('Marker', () => {
 
   it('Parses underscore link', function () {
     expect(marker.mark('... http://site_underscore.com ...')).to.be('... [http://site_underscore.com](http://site_underscore.com) ...');
+  });
+
+  it('Leaves bracketed text alone', function () {
+    expect(marker.mark('... this is [a] test ...')).to.be('... this is [a] test ...');
   });
 
   it('Parses long named link', function () {

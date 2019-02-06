@@ -21,14 +21,17 @@ describe('Marker', () => {
   it('Parses named links', function () {
     (0, _expect2.default)(marker.mark('... [a named link in]http://site.com?id=asd ...')).to.be('... [a named link in](http://site.com?id=asd) ...');
   });
-  it('Parses named links with periods', function () {
-    (0, _expect2.default)(marker.mark('... [a named link in.]http://site.com?id=asd ...')).to.be('... [a named link in.](http://site.com?id=asd) ...');
+  it('Parses named links with punctuation', function () {
+    (0, _expect2.default)(marker.mark('... [a named, ?? link in.]http://site.com?id=asd ...')).to.be('... [a named, ?? link in.](http://site.com?id=asd) ...');
   });
   it('Parses unnamed links', function () {
     (0, _expect2.default)(marker.mark('... http://site.com ...')).to.be('... [http://site.com](http://site.com) ...');
   });
   it('Parses underscore link', function () {
     (0, _expect2.default)(marker.mark('... http://site_underscore.com ...')).to.be('... [http://site_underscore.com](http://site_underscore.com) ...');
+  });
+  it('Leaves bracketed text alone', function () {
+    (0, _expect2.default)(marker.mark('... this is [a] test ...')).to.be('... this is [a] test ...');
   });
   it('Parses long named link', function () {
     (0, _expect2.default)(marker.mark('... [a named link]http://site.com?id=4URLCutterjhightowering5130' + 'gjaexpandedlongishx6farZoff16ei10FwdURLdShortlinks6' + 'URL8268e33jt4553drawnZout30blURLvi1enduringtowering' + '6Doiopi2lengthyNutshellURLRubyURL0enlargedhigh5rncl' + 'astingIs ...')).to.be('... [a named link](http://site.com?id=4URLCutterjhightowering5' + '130gjaexpandedlongishx6farZoff16ei10FwdURLdShortlin' + 'ks6URL8268e33jt4553drawnZout30blURLvi1enduringtower' + 'ing6Doiopi2lengthyNutshellURLRubyURL0enlargedhigh5r' + 'nclastingIs) ...');
