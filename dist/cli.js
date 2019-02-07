@@ -5,7 +5,7 @@ var _yargs = require("yargs");
 
 var _yargs2 = _interopRequireDefault(_yargs);
 
-var _index = require("./parse/index");
+var _index = require("./download/index");
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -17,11 +17,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _yargs2.default // eslint-disable-line
 .help().scriptName('gspan') // Download / Parse
-.command('download <doc> [directory]', 'Downloads a GSpan doc as a JSON file.', yargs => {
+.command('download <doc> [output]', 'Downloads a GSpan doc as a JSON file.', yargs => {
   yargs.positional('doc', {
     describe: 'The Google Doc ID',
     type: 'string'
-  }).positional('directory', {
+  }).positional('output', {
     describe: 'The directory to save the file to',
     type: 'string'
   }).option('authorAPI', {
@@ -36,11 +36,15 @@ _yargs2.default // eslint-disable-line
     alias: 'i',
     describe: 'Accessor for unique ID',
     type: 'string'
+  }).option('defaultPublish', {
+    alias: 'p',
+    describe: 'Default for annoation published state',
+    type: 'boolean'
   });
 }, async function (argv) {
-  const transcript = await (0, _index2.default)(argv.doc, argv.directory, argv);
+  const transcript = await (0, _index2.default)(argv.doc, argv.output, argv);
 
-  if (!argv.directory) {
+  if (!argv.output) {
     console.log(JSON.stringify(transcript));
   }
 }) // Transcribe
@@ -60,7 +64,7 @@ _yargs2.default // eslint-disable-line
   }).option('backupFile', {
     alias: 'f',
     default: 'transcript.txt',
-    describe: 'A path/filename to save a backup file',
+    describe: 'A filepath to save a backup',
     type: 'string'
   }).option('limit', {
     alias: 'l',

@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
-import parse from './parse/index';
+import download from './download/index';
 import transcribe from './transcribe/index';
 
 yargs // eslint-disable-line
   .help()
   .scriptName('gspan')
   // Download / Parse
-  .command('download <doc> [directory]', 'Downloads a GSpan doc as a JSON file.', (yargs) => {
+  .command('download <doc> [output]', 'Downloads a GSpan doc as a JSON file.', (yargs) => {
     yargs
       .positional('doc', {
         describe: 'The Google Doc ID',
         type: 'string',
       })
-      .positional('directory', {
+      .positional('output', {
         describe: 'The directory to save the file to',
         type: 'string',
       })
@@ -31,10 +31,15 @@ yargs // eslint-disable-line
         alias: 'i',
         describe: 'Accessor for unique ID',
         type: 'string',
+      })
+      .option('defaultPublish', {
+        alias: 'p',
+        describe: 'Default for annoation published state',
+        type: 'boolean',
       });
   }, async function (argv) {
-    const transcript = await parse(argv.doc, argv.directory, argv);
-    if (!argv.directory) {
+    const transcript = await download(argv.doc, argv.output, argv);
+    if (!argv.output) {
       console.log(JSON.stringify(transcript));
     }
   })
@@ -60,7 +65,7 @@ yargs // eslint-disable-line
       .option('backupFile', {
         alias: 'f',
         default: 'transcript.txt',
-        describe: 'A path/filename to save a backup file',
+        describe: 'A filepath to save a backup',
         type: 'string',
       })
       .option('limit', {

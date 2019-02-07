@@ -4,12 +4,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _parse = require("./parse");
+var _download = require("./download");
 
-Object.defineProperty(exports, "parse", {
+Object.defineProperty(exports, "download", {
   enumerable: true,
   get: function () {
-    return _interopRequireDefault(_parse).default;
+    return _interopRequireDefault(_download).default;
   }
 });
 

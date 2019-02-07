@@ -1,6 +1,6 @@
 import expect from 'expect.js';
 import fs from 'fs-extra';
-import gspan from '../parse/index';
+import gspan from '../download/index';
 
 const TEST_DOC = '1uD3QH9TJTUbmD76c3ELRgfWDszY68NgwovF3iUf3RvE';
 
@@ -267,6 +267,30 @@ describe('GSpan Parse', () => {
     content.forEach((g, idx) => {
       expect(g.id).to.be(transcriptTwo.content[idx].id);
     });
+  });
+});
+
+describe('GSpan Parse (No Authors)', () => {
+  let content, users;
+
+  before(async function () {
+    const transcript = await gspan('1msmYvgSd20osbkvm8GybnFtkewarFCMo6VQj1qyM9GI');
+
+    content = transcript.content;
+    users = transcript.users;
+  });
+
+  it('Parses default Google Users', async function () {
+    expect(users).to.have.property('Andrew Briz');
+    expect(users['Andrew Briz']).to.have.property('displayName');
+  });
+
+  it('Matches comments to the right user', async function () {
+    const graf = content[1];
+    expect(graf.annotations.length).to.be.above(0);
+
+    const annotation = graf.annotations[0];
+    expect(users[annotation.author].displayName).to.be('Andrew Briz');
   });
 });
 
