@@ -1,6 +1,6 @@
 # GSpan.js
 
-A tool for writing live C-Span transcripts into a Google Doc and annotating those docs in the same environment. It comes in two flavors: a CLI and a Node.js API which can be used directly in Node.js runtime.
+A tool for writing live C-Span transcripts into a Google Doc and annotating that content in the same environment.
 
 GSpan uses [Opened Captions](https://openedcaptions.com/) created by [Dan Schultz](https://twitter.com/slifty) as the source of these captions. You can [read more about the Opened Captions project on Source](https://source.opennews.org/articles/introducing-opened-captions/).
 
@@ -27,10 +27,9 @@ Options:
   --verbose, -v     Log new entries in the console                     [boolean]
   --backfill, -b    Start from a saved backup file                     [boolean]
   --backupFile, -f  A filepath to save a backup                         [string]
-  --limit, -l       A limit of iterations.                              [number]
 ```
 
-#### Downloading and parsing data from a Google Doc
+##### Downloading and parsing data from a Google Doc
 
 ```
 gspan download <doc> [output]
@@ -53,7 +52,7 @@ Options:
 
 ## Setup
 
-In order to use this app you'll need a Google Service Account which has viewing access to your Google Doc. For help with creating a Google Service Account, see [Making A Google Service Account](docs/GoogleServiceAccount.md).
+In order to use this app you'll need a Google Service Account which has write access to your Google Doc. For help with creating a Google Service Account, see [Making A Google Service Account](docs/GoogleServiceAccount.md).
 
 Once you have your credentials file, you'll need the `client_email` and `private_key`. You'll need to make sure that these are saved as environment variables in your runtime under the keys of `GAPI_CLIENT_EMAIL` and `GAPI_PRIVATE_KEY` respectively.
 

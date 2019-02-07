@@ -8,14 +8,14 @@ There's a few ways GSpan can download data from a Google Doc:
 
 - [As A Globally-Installed CLI](#as-a-globally-installed-cli)
 - [As An NPM Script In A Package](#as-an-npm-script-in-a-package)
-- [As An API Inside Node.js](#as-an-api-inside-node.js)
+- [As An API Inside Node.js](#as-an-api-inside-nodejs)
 
 First though, let's go over the things each method has in common: it's arguments. Take a quick look at the table below and reference it as you go throughout the rest of this doc.
 
 ## GSpan Download Arguments Quick Reference
 
 | Name | Description | Type | Required / Default | CLI Position / Alias |
-| ---|---| ---|
+| ---|---| ---| --- | --- |
 | `doc` | The Google Doc's ID | String | **Required** | First
 | `output` | The output directory for the GSpan data. Provide a [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) value to instead have the function return the data as a JSON object | String | None | Second
 | `defaultPublish`| The default value each annotation's publish key should be set to if there is no `publish` or `unpublish` reply  | Boolean | true | -p |

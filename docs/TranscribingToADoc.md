@@ -1,12 +1,12 @@
 # Transcribing To A Doc
 
-A main features of GSpan is its ability to transcribe live C-Span captions into a Google Doc that can then be parsed using it's [downloading functionality](DownloadingADoc.md).
+A main feature of GSpan is its ability to transcribe live C-Span captions into a Google Doc that can then be parsed using it's [downloading functionality](DownloadingADoc.md).
 
 There's a few ways GSpan can transcribe captions to a Google Doc:
 
 - [As A Globally-Installed CLI](#as-a-globally-installed-cli)
 - [As An NPM Script In A Package](#as-an-npm-script-in-a-package)
-- [As An API Inside Node.js](#as-an-api-inside-node.js)
+- [As An API Inside Node.js](#as-an-api-inside-nodejs)
 
 First though, let's go over the things each method has in common: it's arguments. Take a quick look at the table below and reference it as you go throughout the rest of this doc.
 
@@ -14,7 +14,7 @@ First though, let's go over the things each method has in common: it's arguments
 ## GSpan Download Arguments Quick Reference
 
 | Name | Description | Type | Required / Default | CLI Position / Alias |
-| ---|---| ---|
+| ---|---| ---| --- | --- |
 | `doc` | The Google Doc's ID | String | **Required** | First
 | `verbose` | Log new data from opened captions in the console | Boolean | true | -v
 | `backfill`*| Start the transcribing from the latest saved backup file  | Boolean | false | -b |
