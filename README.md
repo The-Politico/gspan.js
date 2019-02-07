@@ -63,7 +63,7 @@ Options:
   --defaultPublish, -p      Default for annoation published state      [boolean]
 ```
 
-<em>* Boolean arguments can be set to false by setting them equal to false or by adding the `no-` prefix to their name. (e.g. `gspan transcribe DOC_ID --no-verbose` or `gspan download DOC_ID -p=false`)
+<em>* Boolean arguments can be set to false by setting them equal to false or by adding the `no-` prefix to their name. (e.g. `gspan transcribe DOC_ID --no-verbose` or `gspan download DOC_ID -p=false`)</em>
 
 ## The Data
 
