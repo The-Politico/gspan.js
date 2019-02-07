@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import fs from 'fs';
+import assign from 'lodash/assign';
 import { google } from '@politico/interactive-bin';
 import format from './utils/format';
 import backupCache from './utils/backupCache';
@@ -8,13 +9,22 @@ import getCache from './utils/getCache';
 
 const docsAPI = new google.Docs();
 
-export default async function (doc, limit, fillBackup = false, backupName = 'transcript.txt', verbose = false) {
+export default async function (doc, options) {
+  const defaults = {
+    backfill: false,
+    backupFile: 'transcript.txt',
+    verbose: true,
+    limit: null,
+  };
+
+  const config = assign({}, defaults, options);
+
   const cache = [];
 
-  if (fillBackup) {
+  if (config.backfill) {
     let backup = null;
     try {
-      backup = fs.readFileSync(backupName, 'utf8');
+      backup = fs.readFileSync(config.backupFile, 'utf8');
       const d = new Date();
       d.setDate(d.getDate() - 100);
 
@@ -25,7 +35,7 @@ export default async function (doc, limit, fillBackup = false, backupName = 'tra
     }
   }
 
-  const backupStream = fs.createWriteStream(backupName, {flags: 'a'});
+  const backupStream = fs.createWriteStream(config.backupFile, { flags: 'a' });
 
   return new Promise(resolve => {
     const socket = io.connect('https://openedcaptions.com:443');
@@ -36,9 +46,9 @@ export default async function (doc, limit, fillBackup = false, backupName = 'tra
       if (data.data.body === '\r\n') { return; }
       const dat = data.data.body;
 
-      backupCache(backupStream, ` ${dat}`, backupName);
+      backupCache(backupStream, ` ${dat}`, config.backupFile);
 
-      if (verbose) {
+      if (config.verbose) {
         console.log(Date.now(), dat);
       }
 
@@ -55,7 +65,7 @@ export default async function (doc, limit, fillBackup = false, backupName = 'tra
       }
 
       iter++;
-      if (limit && iter === limit) {
+      if (config.limit && iter === config.limit) {
         resolve();
         socket.disconnect();
       }

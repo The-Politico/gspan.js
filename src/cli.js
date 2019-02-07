@@ -74,6 +74,6 @@ yargs // eslint-disable-line
         type: 'number',
       });
   }, async function (argv) {
-    await transcribe(argv.doc, argv.limit, argv.backfill, argv.backupFile, argv.verbose);
+    await transcribe(argv.doc, argv);
   })
   .argv;

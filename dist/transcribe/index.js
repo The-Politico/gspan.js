@@ -4,14 +4,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = async function (doc, limit, fillBackup = false, backupName = 'transcript.txt', verbose = false) {
+exports.default = async function (doc, options) {
+  const defaults = {
+    backfill: false,
+    backupFile: 'transcript.txt',
+    verbose: true,
+    limit: null
+  };
+  const config = (0, _assign2.default)({}, defaults, options);
   const cache = [];
 
-  if (fillBackup) {
+  if (config.backfill) {
     let backup = null;
 
     try {
-      backup = _fs2.default.readFileSync(backupName, 'utf8');
+      backup = _fs2.default.readFileSync(config.backupFile, 'utf8');
       const d = new Date();
       d.setDate(d.getDate() - 100);
       const text = (0, _format2.default)(backup);
@@ -21,7 +28,7 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
     }
   }
 
-  const backupStream = _fs2.default.createWriteStream(backupName, {
+  const backupStream = _fs2.default.createWriteStream(config.backupFile, {
     flags: 'a'
   });
 
@@ -36,9 +43,9 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
       }
 
       const dat = data.data.body;
-      (0, _backupCache2.default)(backupStream, ` ${dat}`, backupName);
+      (0, _backupCache2.default)(backupStream, ` ${dat}`, config.backupFile);
 
-      if (verbose) {
+      if (config.verbose) {
         console.log(Date.now(), dat);
       }
 
@@ -58,7 +65,7 @@ exports.default = async function (doc, limit, fillBackup = false, backupName = '
 
       iter++;
 
-      if (limit && iter === limit) {
+      if (config.limit && iter === config.limit) {
         resolve();
         socket.disconnect();
       }
@@ -77,6 +84,10 @@ var _socket2 = _interopRequireDefault(_socket);
 var _fs = require("fs");
 
 var _fs2 = _interopRequireDefault(_fs);
+
+var _assign = require("lodash/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
 
 var _interactiveBin = require("@politico/interactive-bin");
 

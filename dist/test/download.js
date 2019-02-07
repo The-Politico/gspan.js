@@ -204,7 +204,7 @@ describe('GSpan Parse (No Authors)', () => {
     (0, _expect2.default)(users[annotation.author].displayName).to.be('Andrew Briz');
   });
 });
-describe('Gspan Parse Download', () => {
+describe('GSpan Parse Download', () => {
   before(async function () {
     try {
       await _fsExtra2.default.access('.temp');
@@ -233,7 +233,7 @@ describe('Gspan Parse Download', () => {
     await _fsExtra2.default.rmdir('.temp');
   });
 });
-describe('Gspan Parse Blank', () => {
+describe('GSpan Parse Blank', () => {
   let transcript;
   let content;
   before(async function () {

@@ -294,7 +294,7 @@ describe('GSpan Parse (No Authors)', () => {
   });
 });
 
-describe('Gspan Parse Download', () => {
+describe('GSpan Parse Download', () => {
   before(async function () {
     try {
       await fs.access('.temp');
@@ -324,7 +324,7 @@ describe('Gspan Parse Download', () => {
   });
 });
 
-describe('Gspan Parse Blank', () => {
+describe('GSpan Parse Blank', () => {
   let transcript;
   let content;
 

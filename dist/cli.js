@@ -72,5 +72,5 @@ _yargs2.default // eslint-disable-line
     type: 'number'
   });
 }, async function (argv) {
-  await (0, _index4.default)(argv.doc, argv.limit, argv.backfill, argv.backupFile, argv.verbose);
+  await (0, _index4.default)(argv.doc, argv);
 }).argv;

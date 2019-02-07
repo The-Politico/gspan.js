@@ -15,9 +15,11 @@ var _format2 = _interopRequireDefault(_format);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const TEST_DOC = '1WazH8mGZUtMC0qOxh-BIsnmoAj9WwC25JEndUsb5lYc';
-describe('Gspan Transcribe', () => {
+describe('GSpan Transcribe', () => {
   it('Works', async function () {
-    await (0, _transcribe2.default)(TEST_DOC, 5);
+    await (0, _transcribe2.default)(TEST_DOC, {
+      limit: 5
+    });
   });
   it('Formats ends of sentences.', async function () {
     const speaker = (0, _format2.default)('END OF A SENTENCE. SOME MORE WORDS');

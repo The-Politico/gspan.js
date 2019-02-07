@@ -12,7 +12,7 @@ There's a few ways GSpan can download data from a Google Doc:
 
 First though, let's go over the things each method has in common: it's arguments. Take a quick look at the table below and reference it as you go throughout the rest of this doc.
 
-### GSpan Download Arguments Quick Reference
+## GSpan Download Arguments Quick Reference
 
 | Name | Description | Type | Required / Default | CLI Position / Alias |
 | ---|---| ---|
@@ -70,9 +70,9 @@ $ npm run download
 Just like with the global CLI you can choose to omit the `output` argument or provide extra arguments with their names or aliases. For more on creating npm scripts check out [the official docs.](https://docs.npmjs.com/misc/scripts)
 
 ## As An API Inside Node.js
-If you have it installed in the node runtime you're using you can import Gspan and run its `download` function.
+If you have GSpan installed in the node runtime you're using you can import GSpan and run its `download` function.
 
-If a directory is provided it will return a promise which resolves when the file has been saved. If no directory is provided, it will return a promise which resolves with the Gspan data.
+If a directory is provided it will return a promise which resolves when the file has been saved. If no directory is provided, it will return a promise which resolves with the GSpan data.
 
 ```javascript
 import gspan from 'gspan';
