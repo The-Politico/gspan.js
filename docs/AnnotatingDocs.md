@@ -28,17 +28,17 @@ You can also paste links into an annotation, but you should use our special synt
 [Trump's State of the Union aims for unity after a polarizing year]https://www.politico.com/story/2018/01/27/state-union-2018-trump-address-373766
 ```
 
-![formatting](images/formatting.jpg)
+<img src="images/formatting.jpg" style="width: 50%;"/>
 
 <em>
-\*\*Developers should see [Formatting Comments](FormattingComments.md) for more about the data structure these formatting options produce.
+** Developers should see <a href="FormattingComments.md">Formatting Comments</a> for more about the data structure these formatting options produce.
 </em>
 
 
 #### Editing / Deleting Your Annotations
 If you need edit or delete your annotation, you can click the three dots in the top right corner to bring up those options.
 
-![editingcomments](images/editingcomments.jpg)
+<img src="images/editingcomments.jpg" style="width: 50%;"/>
 
 ## Editors
 
