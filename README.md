@@ -5,7 +5,7 @@
 Transcribe and annotate C-Span closed captions in Google.
 
 - [Why This?](#why-this)
-- [How It works](how-it-works)
+- [How It works](#how-it-works)
 - [Quick Start](#quick-start)
 - [Authenticating](#authenticating)
 - [Demo](#demo)
