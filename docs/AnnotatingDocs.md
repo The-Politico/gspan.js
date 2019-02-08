@@ -28,8 +28,6 @@ You can also paste links into an annotation, but you should use our special synt
 [Trump's State of the Union aims for unity after a polarizing year]https://www.politico.com/story/2018/01/27/state-union-2018-trump-address-373766
 ```
 
-![formatting](images/formatting.jpg){:width="50%"}
-
 <img src="images/formatting.jpg" style="width: 50%;"/>
 
 <em>
@@ -40,7 +38,7 @@ You can also paste links into an annotation, but you should use our special synt
 #### Editing / Deleting Your Annotations
 If you need edit or delete your annotation, you can click the three dots in the top right corner to bring up those options.
 
-<img src="images/editingcomments.jpg" style="width: 50%;"/>
+![editingcomments](images/editingcomments.jpg)
 
 ## Editors
 
@@ -97,7 +95,7 @@ Tags can be added to a comment by replying:
 tag_name: TK TK TK
 ```
 
-For example, at POLITICO we use the `topic` tag. So we would assign a topic to a comment by replying:
+For example, at POLITICO we use the `topic` tag. So we would assign a topic to an annotation by replying:
 
 ```
 topic: Immigration
