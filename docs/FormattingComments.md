@@ -1,6 +1,6 @@
 # Formatting Comments
 
-GSpan uses a unique form of formatting rich text which stems from our work with Slack chats. This format will apply to all comment text and tags and outputs standard markdown in the downloaded data.
+GSpan uses a unique form of formatting rich text which stems from our work with Slack chats. This format will apply to all comment text / tags and outputs standard markdown in the downloaded data.
 
 ## Bold
 

@@ -16,7 +16,7 @@ Give your new project a name and click `Create`.
 
 In order for your service account to be able to do things, you need to enable certain APIs for your project. The two you'll need for GSpan are Drive and Docs.
 
-Go to the [Google Drive API](https://console.developers.google.com/apis/library/drive.googleapis.com) and make sure you have the right project selected (the selected project name is located at the top left of your screen next to Google APIs). Click `Enable`.
+Go to the [Google Drive API](https://console.developers.google.com/apis/library/drive.googleapis.com) and make sure you have the right project selected (the selected project name is located at the top left of your screen next to "Google APIs"). Click `Enable`.
 
 ![driveapi](images/driveapi.jpg)
 
@@ -31,6 +31,6 @@ Once you're done, click `Create`. In the next screen, give it the role of `Edito
 
 ![permissions](images/permissions.jpg)
 
-In the final step, you can ignore the `Grant users access to this service account` and instead click `Create Key`. Choose `JSON` as the `Key type` and then click `Create`. This will give you a one-time credentials file which you should keep in a safe place. If you lose it you can create a new set of keys but you'll never be able get a key from this console after it's been created.
+In the final step, you can ignore the `Grant users access to this service account` and instead click `Create Key`. Choose `JSON` as the `Key type` and then click `Create`. This will give you a one-time credentials file which you should keep in a safe place. If you lose it you can create a new set of keys but you'll never be able get the original credentials from this console after it's been created.
 
-In this file you'll find a `private_key` and a `client_email` which you'll need to have set as `GAPI_PRIVATE_KEY` and `GAPI_CLIENT_EMAIL` respectively in your node environment (see the main docs for more on how to do that).
+In this file you'll find a `private_key` and a `client_email` which you'll need to have set as `GAPI_PRIVATE_KEY` and `GAPI_CLIENT_EMAIL` respectively in your node environment (see the [README](../README.md) for more on how to do that).
