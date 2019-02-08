@@ -24,6 +24,7 @@ There are some limitations though that come from the way the Google API works. T
 ❌
 
 ![override3](images/override3.jpg)
+
 It doesn't work because the closing curly brace is inside the highlight. If you need to truncate the end of the highlight for some reason, you'll need to delete the comment and make it again.
 
 Be very careful of putting the closing braces as the last character within the highlight. That won't work either.
