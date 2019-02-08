@@ -102,3 +102,6 @@ topic: Immigration
 ```
 
 ![keys](images/keys.jpg)
+
+## Advanced
+If you're having some problems, check out the [Advanced Annotating guide](Advanced.md).
