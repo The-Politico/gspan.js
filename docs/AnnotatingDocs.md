@@ -11,7 +11,7 @@ Maintaining live annotations often involves two roles: annotating and editing. T
 Comments you make in the document will be published as a live annotation. Once content starts coming in you'll see something like this:
 
 <blockquote>
-\<PRES. TRUMP\>: Mr. Speaker, Mr. Vice President, members of Congress, the first lady of the United States, and my fellow Americans. Less than one year has passed since I first stood at this podium, in this majestic chamber, to speak on behalf of the American people and to address their concerns, their hopes and their dreams. That night, our new administration had already taken very swift action. A new tide of optimism was already sweeping across our land. Each day since, we have gone forward with a clear vision and a righteous mission, to make America great again for all Americans.
+&lt;PRES. TRUMP&gt;: Mr. Speaker, Mr. Vice President, members of Congress, the first lady of the United States, and my fellow Americans. Less than one year has passed since I first stood at this podium, in this majestic chamber, to speak on behalf of the American people and to address their concerns, their hopes and their dreams. That night, our new administration had already taken very swift action. A new tide of optimism was already sweeping across our land. Each day since, we have gone forward with a clear vision and a righteous mission, to make America great again for all Americans.
 </blockquote>
 
 To make a comment, highlight the part of the paragraph you want to make a comment on and click the button that appears to the right. Write your annotation and click "Comment".
