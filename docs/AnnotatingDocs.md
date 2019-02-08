@@ -28,6 +28,8 @@ You can also paste links into an annotation, but you should use our special synt
 [Trump's State of the Union aims for unity after a polarizing year]https://www.politico.com/story/2018/01/27/state-union-2018-trump-address-373766
 ```
 
+![formatting](images/formatting.jpg){:width="50%"}
+
 <img src="images/formatting.jpg" style="width: 50%;"/>
 
 <em>
