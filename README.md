@@ -22,7 +22,7 @@ At POLITICO we've leveraged this to create in all-in-one system for getting live
 
 ## How It Works
 
-GSpan comes with two main features that are designed to work together: [transcription](docs/TranscribingToADoc.md) and [downloading/parsing]((docs/DownloadingADoc.md).
+GSpan comes with two main features that are designed to work together: [transcription](docs/TranscribingToADoc.md) and [downloading/parsing](docs/DownloadingADoc.md).
 
 GSpan uses [Opened Captions](https://openedcaptions.com/) created by [Dan Schultz](https://twitter.com/slifty) as the source of the transcription. You can [read more about the Opened Captions project on Source](https://source.opennews.org/articles/introducing-opened-captions/). These captions are written into a Google Doc where your users can [use the native commenting functionality to annotate documents](docs/AnnotatingDocs.md).
 
