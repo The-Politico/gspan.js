@@ -8,7 +8,7 @@ GSpan download outputs an object with two keys.
 | content | Object\[\] | An array of [content objects](#the-content-object) |
 
 ## Users
-Users is an object with unique IDs of all the active users referenced in the annotations. Each key is data for a specific user. By default, GSpan uses the user object provided by the Google API.
+Users is an object with unique IDs of all the active users referenced in the annotations. Each key represents data for a specific user. By default, GSpan uses the user data provided by the Google API.
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -25,8 +25,8 @@ Content objects are objects representing text in the Google Doc.
 | Property | Type |Description |
 | --- | --- | -- |
 | id | string | Unique identifiers generated from their value and (in the case of duplication) their index in the content array
-| [type](#type-&-value) | string | The type of object |
-| [value](#type-&-value) | string | The text of the object |
+| [type](#type--value) | string | The type of object |
+| [value](#type--value) | string | The text of the object |
 | annotations | Object\[\] | An array of [annotation objects](#the-annotation-object) |
 
 ### Type & Value

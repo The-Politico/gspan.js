@@ -10,20 +10,20 @@ There's a few ways GSpan can download data from a Google Doc:
 - [As An NPM Script In A Package](#as-an-npm-script-in-a-package)
 - [As An API Inside Node.js](#as-an-api-inside-nodejs)
 
-First though, let's go over the things each method has in common: it's arguments. Take a quick look at the table below and reference it as you go throughout the rest of this doc.
+First though, let's go over the things each method has in common: its arguments. Take a quick look at the table below and reference it as you go throughout the rest of this doc.
 
 ## GSpan Download Arguments Quick Reference
 
 | Name | Description | Type | Required / Default | CLI Position / Alias |
 | ---|---| ---| --- | --- |
 | `doc` | The Google Doc's ID | String | **Required** | First
-| `output` | The output directory for the GSpan data. Provide a [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) value to instead have the function return the data as a JSON object | String | None | Second
+| `output` | The output directory for the GSpan data. Provide a [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) value to instead have the function return the data as a JSON object | String | undefined | Second
 | `defaultPublish`| The default value each annotation's publish key should be set to if there is no `publish` or `unpublish` reply  | Boolean | true | -p |
-| `authorAPI`* | A link to an external authors API | String (URL) | None | -a
-| `authorNameAccessor`* | A [Lodash accessor](https://lodash.com/docs/4.17.11#get) that points to the key in your data that should match with Google's display name | String | "displayName" | -n |
-| `authorIdAccessor`* | A Lodash accessor that points to a property unique for each author | String | "displayName" | -i |
+| `authorAPI`* | A link to an external authors API | String (URL) | undefined | -a
+| `authorNameAccessor`* | A [Lodash accessor path](https://lodash.com/docs/4.17.11#get) that points to the key in your data that should match with Google's display name | String | "displayName" | -n |
+| `authorIdAccessor`* | A [Lodash accessor path](https://lodash.com/docs/4.17.11#get) that points to a property unique for each author | String | "displayName" | -i |
 
-<em>* Google's native Author system doesn't provide more than a name and a Google profile photo. To make up for this shortcoming, GSpan's authors are configurable using these three arguments. See [Connecting to An External Authors API](#connecting-to-an-external-authors-api) for more.</em>
+<em>* Google's native user system doesn't provide more than a name and a Google profile photo. To make up for this shortcoming, GSpan's authors are configurable using these three arguments. See [Connecting to An External Authors API](#connecting-to-an-external-authors-api) for more.</em>
 
 ## As A Globally-Installed CLI
 If you've installed GSpan as a global package you can use it as a CLI from any directory in your terminal using:
@@ -107,7 +107,7 @@ gspan.download('GOOGLE_DOC_ID', null,
 ```
 
 ## Connecting to An External Authors API
-Unfortunately Google's API does not provide much data on commenters. For that GSpan has a way to connect to an external Author API as long as the data in that App has a display name that matches up with their Google Plus display name.
+Unfortunately Google's API does not provide much data on commenters. Because of this limitation, GSpan has a way to connect to an external author API as long as that data has a display name that matches up with their Google+ display name.
 
 ### Configuring Your Authors API
 Your API should return an array that looks something like this:
@@ -182,3 +182,5 @@ Which will create data that looks like:
   ]
 }
 ```
+
+Note that only authors with annotations are included to the `users` object.

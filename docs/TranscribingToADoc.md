@@ -1,6 +1,6 @@
 # Transcribing To A Doc
 
-A main feature of GSpan is its ability to transcribe live C-Span captions into a Google Doc that can then be parsed using it's [downloading functionality](DownloadingADoc.md).
+A main feature of GSpan is its ability to transcribe live C-Span captions into a Google Doc that can then be parsed using its [downloading functionality](DownloadingADoc.md).
 
 There's a few ways GSpan can transcribe captions to a Google Doc:
 
@@ -8,7 +8,7 @@ There's a few ways GSpan can transcribe captions to a Google Doc:
 - [As An NPM Script In A Package](#as-an-npm-script-in-a-package)
 - [As An API Inside Node.js](#as-an-api-inside-nodejs)
 
-First though, let's go over the things each method has in common: it's arguments. Take a quick look at the table below and reference it as you go throughout the rest of this doc.
+First though, let's go over the things each method has in common: its arguments. Take a quick look at the table below and reference it as you go throughout the rest of this doc.
 
 
 ## GSpan Download Arguments Quick Reference
@@ -62,9 +62,7 @@ $ npm run transcribe
 This will create the backup file at the root of your project.
 
 ## As An API Inside Node.js
-If you have GSpan installed in the node runtime you're using you can import GSpan and run its `download` function.
-
-If a directory is provided it will return a promise which resolves when the file has been saved. If no directory is provided, it will return a promise which resolves with the GSpan data.
+If you have GSpan installed in the node runtime you're using you can import GSpan and run its `transcribe` function.
 
 ```javascript
 import gspan from 'gspan';
@@ -91,7 +89,7 @@ gspan.transcribe(
 ## Creating and Using Backups
 By default, GSpan will create a backup file named `transcript.txt` in the [cwd](https://nodejs.org/api/process.html#process_process_cwd) of where it was called. The location of this file can be changed using the `backupFile` argument.
 
-Content will continue to be appended to this backup file until it is manually cleared. If the contents of your Google Doc has been deleted and you cannot recover it (or you'd like to begin transcribing in a new Google doc) you can begin the transcription with the contents of the backup file by using the `backfill` argument.
+Content will continue to be appended to this backup file until it is manually cleared or deleted. If the contents of your Google Doc has been deleted and you cannot recover it (or you'd like to begin transcribing in a new Google doc) you can begin the transcription with the contents of the backup file by using the `backfill` argument.
 
 #### Example
 
@@ -109,7 +107,7 @@ Then you stop the transcription, and start transcription with a new `doc` ID and
 4. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ```
 
-The Google Doc will now have the following combined content in it:
+The new Google Doc will now have the following combined content in it:
 
 ```
 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
