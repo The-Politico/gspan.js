@@ -16,7 +16,7 @@ Comments you make in the document will be published as a live annotation. Once c
 
 To make a comment, highlight the part of the paragraph you want to make a comment on and click the button that appears to the right. Write your annotation and click "Comment".
 
-![makingcomments](images/makingcomments.jpg)
+<img src="images/makingcomments.jpg" style="width: 100%;"/>
 
 #### Formatting Your Annotations
 
