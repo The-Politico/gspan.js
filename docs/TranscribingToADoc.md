@@ -22,7 +22,7 @@ First though, let's go over the things each method has in common: its arguments.
 
 <em>* Because Google Docs can be edited by many users, GSpan comes with a built-in backup system. [Read more about this system below](#creating-and-using-backups).</em>
 
-## As A Globally-Installed CLI
+## As a Globally-Installed CLI
 If you've installed GSpan as a global package you can use it as a CLI from any directory in your terminal using:
 
 ```
@@ -37,8 +37,8 @@ You can also supply the other arguments using their aliases or names:
 $ gspan transcribe MY_DOC_ID -v=false --backupFile="backup.txt"
 ```
 
-## As An NPM Script In A Package
-If you've installed GSpan as a package in a node project you can use the CLI in your node scripts like this:
+## As a Locally-Installed Package
+If you've installed GSpan as a package in a node project you can use the CLI in your npm scripts like this:
 
 ```javascript
 // package.json

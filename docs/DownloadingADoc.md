@@ -25,7 +25,7 @@ First though, let's go over the things each method has in common: its arguments.
 
 <em>* Google's native user system doesn't provide more than a name and a Google profile photo. To make up for this shortcoming, GSpan's authors are configurable using these three arguments. See [Connecting to An External Authors API](#connecting-to-an-external-authors-api) for more.</em>
 
-## As A Globally-Installed CLI
+## As a Globally-Installed CLI
 If you've installed GSpan as a global package you can use it as a CLI from any directory in your terminal using:
 
 ```
@@ -45,8 +45,8 @@ $ gspan download MY_DOC_ID -p=false --authorAPI="https://example.com/staff/"
 ```
 
 
-## As An NPM Script In A Package
-If you've installed GSpan as a package in a node project you can use the CLI in your node scripts like this:
+## As a Locally-Installed Package
+If you've installed GSpan as a package in a node project you can use the CLI in your npm scripts like this:
 
 ```javascript
 // package.json
