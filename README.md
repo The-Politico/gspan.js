@@ -14,19 +14,17 @@ Transcribe and annotate C-Span closed captions in Google.
 
 ## Why This?
 
-Providing context and fact checks are traditional tasks of the journalist. Perhaps once there was an era where they could simply provide that information and be trusted, but in an increasingly hyperlinked world transparency has become vital. Linking to the primary source is always a good start, but in 2019 we believe we can do better than that: we can provide that information in line with the primary source.
+Providing context and fact checks are two common things we do at POLITICO. This can, of course, come with certain technical challenges (especially when the primary source is a live event happening concurrently with the fact checking). Google has solved the challenges of synchronous document editing in a way very few platforms have even attempted. They've also created a pretty solid way to comment on text in that document. And finally, they've done very well in making sure everyone has a Google account.
 
-This of course comes with technical challenges (especially when the primary source is a live event happening concurrently with the fact checking). Google has solved the challenges of synchronous document editing in a way very few platforms have even attempted. They've also created a pretty solid way to comment on text in that document. And finally, they've done very well in making sure everyone has a Google account.
-
-At POLITICO we've leveraged this to create in all-in-one system for getting live captions into a document where multiple editors and reporters can provide vital information about a speech, hearing, press release, court filing, etc. We can then combine the original document and the context provided by journalists into a usable data product.
+We've leveraged this to create in all-in-one system for getting live captions into a Google document where multiple editors and reporters can provide vital information about a speech, hearing, press release, court filing, etc. We can then combine the original document and the context provided by journalists into a usable data product.
 
 ## How It Works
 
 GSpan comes with two main features that are designed to work together: [transcription](docs/TranscribingToADoc.md) and [downloading/parsing](docs/DownloadingADoc.md).
 
-It uses [Opened Captions](https://openedcaptions.com/) created by [Dan Schultz](https://twitter.com/slifty) as the source of the transcription. You can [read more about the Opened Captions project on Source](https://source.opennews.org/articles/introducing-opened-captions/). These captions are written into a Google Doc where your users can [use the native commenting functionality to annotate documents](docs/AnnotatingDocs.md).
+It uses [Opened Captions](https://openedcaptions.com/) created by [Dan Schultz](https://twitter.com/slifty) as the source of the transcription. You can [read more about the Opened Captions project on Source](https://source.opennews.org/articles/introducing-opened-captions/). These captions are written into a Google Doc using [a special markup](docs/AnnotatingDocs.md/#creating-speaker-changes-or-soundbites) to signify things like speaker changes and soundbites. Then, reporters can [use the native commenting functionality to annotate documents](docs/AnnotatingDocs.md).
 
-Once annotations are done you can convert that Google Doc (with all its annotations) into [structured data](docs/DataSignature.md) using GSpan's download functionality.
+Once annotations are done you can convert that Google Doc (with all its annotations) into [structured data](docs/DataSignature.md) using GSpan's download functionality. All the unique markup will be turned into an easy-to-use JSON format with rich text elements rendered as markdown.
 
 What you do with that data and how your page looks is up to you, but [here's what we did](#demo).
 
