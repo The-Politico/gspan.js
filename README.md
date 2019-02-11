@@ -24,7 +24,7 @@ GSpan comes with two main features that are designed to work together: [transcri
 
 It uses [Opened Captions](https://openedcaptions.com/) created by [Dan Schultz](https://twitter.com/slifty) as the source of the transcription. You can [read more about the Opened Captions project on Source](https://source.opennews.org/articles/introducing-opened-captions/). These captions are written into a Google Doc using [a special markup](docs/AnnotatingDocs.md/#creating-speaker-changes-or-soundbites) to signify things like speaker changes and soundbites. Then, reporters can [use the native commenting functionality to annotate documents](docs/AnnotatingDocs.md).
 
-Once annotations are done you can convert that Google Doc (with all its annotations) into [structured data](docs/DataSignature.md) using GSpan's download functionality. All the unique markup will be turned into an easy-to-use JSON format with rich text elements rendered as markdown.
+Once annotations are done you can convert that Google Doc (with all its annotations) into [structured data](docs/DataSignature.md) using GSpan's download functionality. All the unique markup will be turned into an easy-to-use JSON format with rich text elements rendered as [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
 What you do with that data and how your page looks is up to you, but [here's what we did](#demo).
 
