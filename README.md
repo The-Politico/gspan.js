@@ -16,7 +16,7 @@ Transcribe and annotate C-Span closed captions in Google.
 
 Providing necessary context and checking the facts when politicians and other public figures speak is a critical part of our journalism at POLITICO. Doing them live comes with some hard technical challenges, especially when that context requires many fact-checkers and when we want to show our work alongside the original source.
 
-This library aims to make that process easier by leveraging a platform that is already very good at solving the hard problems involved: Google docs. Using GSpan you’ll have an end-to-end system for acquiring transcripts of a live event, creating a collaborative editing environment in Google docs for fact-checkers to annotate that transcript and finally structuring all that data in way it can be easily consumed by a front-end application or site.
+This library aims to make that process easier by leveraging a platform that is already very good at solving the hard problems involved: Google docs. Using GSpan you’ll have an end-to-end system for acquiring transcripts of a live event, creating a collaborative editing environment in Google docs for fact-checkers to annotate that transcript and, finally, structuring all that data in a way it can be easily consumed by a front-end application or site.
 
 ## How It Works
 
