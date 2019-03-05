@@ -91,7 +91,7 @@ There's a number of ways to do this depending on your workflow. If you've never 
 Finally, also make sure to share the Google Doc you're using with the `client_email`. It may look long and not like a valid email, but Google will allow it.
 
 ## Demo
-Our inaugural use of GSpan was for the 2019 State of the Union. Check out the [page](https://www.politico.com/interactives/2019/trump-state-of-the-union-2019-live-fact-check-transcript-2/5/19/) and [data](https://www.politico.com/interactives/2019/trump-state-of-the-union-2019-live-fact-check-transcript-2/5/19/data/data.json) data that powered it.
+Our inaugural use of GSpan was for the 2019 State of the Union. Check out the [page](https://www.politico.com/interactives/2019/trump-state-of-the-union-2019-live-fact-check-transcript-2/5/19/)!
 
 <a href="https://www.politico.com/interactives/2019/trump-state-of-the-union-2019-live-fact-check-transcript-2/5/19/"><img src="docs/images/demo.jpg"></a>
 
