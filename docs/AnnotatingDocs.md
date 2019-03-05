@@ -1,6 +1,6 @@
 # Annotating A Google Doc
 
-Once you've got a live transcript being fed into a Google Doc (see [Transcribing To A Doc](TranscribingToADoc.md)) or you have content pasted in the doc you can begin annoating it.
+Once you've got a live transcript being fed into a Google Doc (see [Transcribing To A Doc](TranscribingToADoc.md)) or you have content pasted in the doc you can begin annotating it.
 
 Maintaining live annotations often involves two roles: annotating and editing. The docs below are broken down for those two roles.
 
