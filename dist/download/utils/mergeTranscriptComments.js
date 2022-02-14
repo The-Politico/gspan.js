@@ -18,8 +18,6 @@ var _chalk2 = _interopRequireDefault(_chalk);
 
 var _htmlEntities = require("html-entities");
 
-var _htmlEntities2 = _interopRequireDefault(_htmlEntities);
-
 var _marker = require("../marker");
 
 var _marker2 = _interopRequireDefault(_marker);
@@ -40,7 +38,7 @@ const USER_REGEX = /^<.*>:/;
 
 const COMMENT_OVERRIDE_REGEX = code => new RegExp(`(\\{\\{)([^{}]*\\[${code}\\][^{}]*)(\\}\\})`);
 
-const entities = new _htmlEntities2.default.XmlEntities();
+const entities = new _htmlEntities.XmlEntities();
 
 exports.default = (transcript, comments) => {
   const getCommentLocations = (content, locations = {}) => {

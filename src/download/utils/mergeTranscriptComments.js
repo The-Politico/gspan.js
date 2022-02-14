@@ -1,7 +1,7 @@
 import find from 'lodash/find';
 import keys from 'lodash/keys';
 import chalk from 'chalk';
-import HTMLEntities from 'html-entities';
+import { XmlEntities } from 'html-entities';
 import Marker from '../marker';
 import replaceRecursive from './replaceRecursive';
 import validateCommentRemoval from './validateCommentRemoval';
@@ -10,7 +10,7 @@ const COMMENT_REGEX = /[^\\]\[(\w+)\]/;
 const COMMENT_REGEX_REPL = /([^[]*[^\\])\[(\w+)\](.*)/;
 const USER_REGEX = /^<.*>:/;
 const COMMENT_OVERRIDE_REGEX = code => new RegExp(`(\\{\\{)([^{}]*\\[${code}\\][^{}]*)(\\}\\})`);
-const entities = new HTMLEntities.XmlEntities();
+const entities = new XmlEntities();
 
 export default (transcript, comments) => {
   const getCommentLocations = (content, locations = {}) => {
